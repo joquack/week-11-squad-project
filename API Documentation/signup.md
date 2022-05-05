@@ -58,7 +58,7 @@ Provide name, email, and password for creation of account.
 }
 ```
 
-### Or
+#### Or
 
 **Conditions**: If fields are missings
 
