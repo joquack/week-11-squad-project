@@ -1,0 +1,25 @@
+{
+  "name": "week-12-squad-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joquack/week-12-squad-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joquack/week-12-squad-project/issues"
+  },
+  "homepage": "https://github.com/joquack/week-12-squad-project#readme",
+  "dependencies": {
+    "pg": "^8.7.3",
+    "sequelize": "^6.19.0",
+    "sequelize-cli": "^6.4.1"
+  }
+}
