@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT;
 require("dotenv").config();
-console.log(process.env);
+const port = process.env.PORT || 8080;
+// console.log(port);
 
 app.get("/", (req, res) => {
   res.send("Working Server...");
 });
 
 app.listen(port || 8080, () => {
-  console.log("Server is up....!");
+  console.log(`Server is up....${port}!`);
 });
