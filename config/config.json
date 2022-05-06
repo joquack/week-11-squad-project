@@ -1,9 +1,0 @@
-{
-  "development": {
-    "username": "j3c",
-    "password": null,
-    "database": "j3c",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  }
-}
