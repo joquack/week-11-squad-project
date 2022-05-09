@@ -2,7 +2,9 @@ const bcrypt = require('bcryptjs');
 const db = require('../db/models');
 var express = require('express');
 var router = express.Router();
+
 const { loginUser, logoutUser } = require('../auth.js');
+
 
 const { csrfProtection, asyncHandler } = require('./utils.js')
 const { check, validationResult } = require('express-validator');
@@ -79,6 +81,7 @@ router.get('/signup', csrfProtection, (req, res) => {
         csrfToken: req.csrfToken(),
     });
 });
+
 
 const userValidators = [
     check('username')
@@ -168,5 +171,7 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
         });
     }
 }));
+
+
 
 module.exports = router;
