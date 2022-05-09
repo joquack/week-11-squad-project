@@ -1,12 +1,67 @@
-var express = require('express');
+const bcrypt = require('bcryptjs');
 const db = require('../db/models');
+var express = require('express');
 var router = express.Router();
 
 const { csrfProtection, asyncHandler } = require('./utils.js')
 const { check, validationResult } = require('express-validator');
 
 
-/* GET users listing. */
+router.get('/login', csrfProtection, (req, res) => {
+    res.render('user-login', {
+      title: 'Login',
+      csrfToken: req.csrfToken(),
+    });
+  });
+
+  const loginValidators = [
+    check('email')
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a value for Email Address'),
+    check('password')
+      .exists({ checkFalsy: true })
+      .withMessage('Please provide a value for Password'),
+  ];
+
+  router.post('/login', csrfProtection, loginValidators,
+  asyncHandler(async (req, res) => {
+    const {
+      email,
+      password,
+    } = req.body;
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      const user = await db.User.findOne({ where: { email } });
+
+      if (user !== null) {
+        const passwordMatch = await bcrypt.compare(password, user.hashPassword.toString());
+
+        if (passwordMatch) {
+          // If the password hashes match, then login the user
+          // and redirect them to the default route.
+          // TODO Login the user.
+          return res.send('Hey, that worked!');
+        }
+      }
+
+      errors.push('Login failed for the provided email address and password');
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+
+    res.render('user-login', {
+      title: 'Login',
+      email,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }));
+
+
+
 router.get('/signup', csrfProtection, (req, res) => {
     const user = db.User.build();
     res.render('user-signup', {
@@ -17,6 +72,11 @@ router.get('/signup', csrfProtection, (req, res) => {
 });
 
 const userValidators = [
+    check('username')
+        .exists({ checkFalsy: true })
+        .withMessage('Please provide a value for username')
+        .isLength({ max: 50 })
+        .withMessage('Username must not be more than 50 characters long'),
     check('firstName')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for first name')
@@ -27,28 +87,39 @@ const userValidators = [
         .withMessage('Please provide a value for last name')
         .isLength({ max: 50 })
         .withMessage('Last name must not be more than 50 characters long'),
-    check('username')
-        .exists({ checkFalsy: true })
-        .withMessage('Please provide a value for username')
-        .isLength({ max: 50 })
-        .withMessage('Username must not be more than 50 characters long'),
     check('email')
         .exists({ checkFalsy: true })
-        .withMessage('Please provide a value for email')
-        .isLength({ max: 50 })
-        .withMessage('Email must not be more than 50 characters long')
+        .withMessage('Please provide a value for Email Address')
+        .isLength({ max: 255 })
+        .withMessage('Email Address must not be more than 255 characters long')
         .isEmail()
-        .withMessage('Email Address is not a valid email'),
+        .withMessage('Email Address is not a valid email')
+        .custom((value) => {
+          return db.User.findOne({ where: { email: value } })
+            .then((user) => {
+              if (user) {
+                return Promise.reject('The provided Email Address is already in use by another account');
+              }
+            });
+        }),
     check('password')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for Password')
         .isLength({ max: 50 })
-        .withMessage('Password must not be more than 50 characters long'),
+        .withMessage('Password must not be more than 50 characters long')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+        .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
     check('confirmPassword')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for Confirm Password')
         .isLength({ max: 50 })
-        .withMessage('Confirm Password must not be more than 50 characters long'),
+        .withMessage('Confirm Password must not be more than 50 characters long')
+        .custom((value, { req }) => {
+          if (value !== req.body.password) {
+            throw new Error('Confirm Password does not match Password');
+          }
+          return true;
+        }),
 
 ];
 
@@ -56,23 +127,24 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
 
     const {
         username,
+        firstName,
+        lastName,
         email,
         password,
-        firstName,
-        lastName
     } = req.body;
 
     const user = db.User.build({
         username,
-        email,
-        hashPassword: password,
         firstName,
-        lastName
+        lastName,
+        email,
     });
 
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
+        const hashPassword = await bcrypt.hash(password, 10);
+        user.hashPassword = hashPassword;
         await user.save();
         res.send('Your post was completed! Check Postbird');
     }
@@ -86,13 +158,5 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
         });
     }
 }));
-
-//router.get('/login', function (req, res, next) {
-
-// });
-
-// router.post('/login', function (req, res, next) {
-
-// });
 
 module.exports = router;
