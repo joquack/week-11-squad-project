@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   AnswerVote.associate = function(models) {
-    Answer.belongsTo(models.Answer, {foreignKey: 'answerId'})
+    AnswerVote.belongsTo(models.Answer, {foreignKey: 'answerId'})
   };
   return AnswerVote;
 };
