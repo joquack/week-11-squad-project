@@ -36,14 +36,14 @@ const userValidators = [
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for email')
         .isLength({ max: 50 })
-        .withMessage('Email must not be more than 50 characters long'),
+        .withMessage('Email must not be more than 50 characters long')
+        .isEmail()
+        .withMessage('Email Address is not a valid email'),
     check('password')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for Password')
         .isLength({ max: 50 })
-        .withMessage('Password must not be more than 50 characters long')
-        .isEmail()
-        .withMessage('Email Address is not a valid email'),
+        .withMessage('Password must not be more than 50 characters long'),
     check('confirmPassword')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for Confirm Password')
@@ -69,13 +69,12 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
         firstName,
         lastName
     });
-    res.send('hello')
-    console.log(req.body)
+
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
         await user.save();
-        res.send('/');
+        res.send('Your post was completed! Check Postbird');
     }
     else {
         const errors = validatorErrors.array().map((error) => error.msg);
