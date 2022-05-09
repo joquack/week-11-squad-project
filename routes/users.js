@@ -2,10 +2,16 @@ const bcrypt = require('bcryptjs');
 const db = require('../db/models');
 var express = require('express');
 var router = express.Router();
-const loginUser = require('../auth.js')
+const { loginUser, logoutUser } = require('../auth.js');
 
 const { csrfProtection, asyncHandler } = require('./utils.js')
 const { check, validationResult } = require('express-validator');
+
+router.get('/', asyncHandler(async (req, res) => {
+  res.render('index', {
+    title: 'User Page',
+  });
+}));
 
 
 router.get('/login', csrfProtection, (req, res) => {
@@ -42,7 +48,7 @@ router.get('/login', csrfProtection, (req, res) => {
 
         if (passwordMatch) {
             loginUser(req, res, user);
-          return res.send('Hey, that worked!');
+          return res.redirect('/users');
         }
       }
 
@@ -59,6 +65,10 @@ router.get('/login', csrfProtection, (req, res) => {
     });
   }));
 
+router.post('/logout', (req, res) => {
+    logoutUser(req, res);
+    res.redirect('/users/login');
+  });
 
 
 router.get('/signup', csrfProtection, (req, res) => {
@@ -146,7 +156,7 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
         user.hashPassword = hashPassword;
         await user.save();
         loginUser(req, res, user);
-        res.send('Your post was completed! Check Postbird');
+        res.redirect('/users');
     }
     else {
         const errors = validatorErrors.array().map((error) => error.msg);

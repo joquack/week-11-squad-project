@@ -6,6 +6,10 @@ const loginUser = (req, res, user) => {
   };
 };
 
+const logoutUser = (req, res) => {
+  delete req.session.auth;
+};
+
 const restoreUser = async (req, res, next) => {
   // Log the session object to the console
   // to assist with debugging.
@@ -34,5 +38,6 @@ const restoreUser = async (req, res, next) => {
 
 module.exports = {
   loginUser,
+  logoutUser,
   restoreUser,
 };
