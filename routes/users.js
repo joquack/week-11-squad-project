@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const db = require('../db/models');
 var express = require('express');
 var router = express.Router();
+const loginUser = require('../auth.js')
 
 const { csrfProtection, asyncHandler } = require('./utils.js')
 const { check, validationResult } = require('express-validator');
@@ -40,9 +41,7 @@ router.get('/login', csrfProtection, (req, res) => {
         const passwordMatch = await bcrypt.compare(password, user.hashPassword.toString());
 
         if (passwordMatch) {
-          // If the password hashes match, then login the user
-          // and redirect them to the default route.
-          // TODO Login the user.
+            loginUser(req, res, user);
           return res.send('Hey, that worked!');
         }
       }
@@ -146,6 +145,7 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
         const hashPassword = await bcrypt.hash(password, 10);
         user.hashPassword = hashPassword;
         await user.save();
+        loginUser(req, res, user);
         res.send('Your post was completed! Check Postbird');
     }
     else {
