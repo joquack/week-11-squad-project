@@ -7,6 +7,6 @@ mixin validationErrorSummary(errors)
           li= error
 
 mixin field(labelText, fieldName, fieldValue, fieldType = 'text')
-  div()
+  div(id=`${fieldName}-div`)
     label(for=fieldName id=`${fieldName}-label`)= labelText
     input(type=fieldType id=fieldName name=fieldName value=fieldValue)
