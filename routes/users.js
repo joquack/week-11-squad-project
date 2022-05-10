@@ -15,6 +15,7 @@ router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
   try {
+    console.log(`REALLY THIS SHIT?`);
     res.render("user-profile", { user });
   } catch (error) {
     res.redirect("user-login");
