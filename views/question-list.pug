@@ -1,0 +1,20 @@
+extends layout.pug
+
+block content
+  div
+    a(href='/questions/create') Create Question
+  if questions && questions.length > 0
+    table
+      thead
+        tr
+          th(scope='col') Title
+          th(scope='col') Content
+          th(scope='col') User
+      tbody
+        each question in questions
+          tr
+            td= question.title
+            td= question.content
+            td= question.userId
+  else
+    p: em There are no questions here.
