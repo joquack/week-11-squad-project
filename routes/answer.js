@@ -14,30 +14,30 @@ const checkPermissions = (book, currentUser) => {
   }
 };
 
-router.get("/", asyncHandler( async(req, res) => {
-    const questions = await db.Question.findAll();
-    res.render("question-list", {title: "Questions", questions});
-  })
-);
+// router.get("/", asyncHandler( async(req, res) => {
+//     const answers = await db.Answer.findAll();
+//     res.render("answer-list", {title: "Answers", answers});
+//   })
+// );
 
 router.get("/create", csrfProtection, requireAuth, asyncHandler( async(req, res) => {
-    const question = await db.Question.build();
-    res.render("question-create", {
-        question,
+    const answer = await db.Answer.build();
+    res.render("answer-create", {
+        answer,
         csrfToken: req.csrfToken(),
-        title: "Create a Question"
-    });npm 
+        title: "Submit an Answer"
+    });
   })
 );
 
 router.post("/create", csrfProtection, requireAuth, asyncHandler( async(req, res) => {
-    const { title, content } = req.body;
-    const question = await db.Question.create({
+    const { content } = req.body;
+    const answer = await db.Answer.create({
         title,
         content,
         userId: res.locals.user.id,
     });
-    res.redirect("/questions");
+    res.redirect("/answers");
   })
 );
 
