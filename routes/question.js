@@ -26,7 +26,7 @@ router.get("/create", csrfProtection, requireAuth, asyncHandler( async(req, res)
         question,
         csrfToken: req.csrfToken(),
         title: "Create a Question"
-    });npm 
+    });
   })
 );
 
