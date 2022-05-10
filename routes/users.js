@@ -10,6 +10,7 @@ const {
 } = require("../auth.js");
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
+// const { where } = require("sequelize/types");
 
 router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
@@ -17,6 +18,16 @@ router.get("/", requireAuth, restoreUser, async (req, res) => {
   res.render("user-profile", { user });
 });
 
+router.get("/:id/:userName", async (req, res) => {
+  const numId = parseInt(req.params.id);
+  const name = req.params.userName;
+  const user = await db.User.findByPk(numId);
+
+  if (user.firstName === name && numId === user.id) {
+    return res.render("user-profile");
+  }
+  res.render("profile-not-found");
+});
 router.get("/login", csrfProtection, (req, res) => {
   res.render("user-login", {
     title: "Login",
