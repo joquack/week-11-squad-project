@@ -28,8 +28,8 @@ router.get("/:questionId(\\d+)/create", csrfProtection, requireAuth, asyncHandle
 );
 const answerValidators = [
     check("body")
-      .exists({ checkFalsy: true })
-      .withMessage("Please provide an answer"),
+        .exists({ checkFalsy: true })
+        .withMessage("Please provide an answer")
   ];
 router.post("/:questionId(\\d+)/create", csrfProtection,requireAuth, answerValidators, asyncHandler(async (req, res) => {
     const { questionId, body } = req.body;
@@ -40,19 +40,22 @@ router.post("/:questionId(\\d+)/create", csrfProtection,requireAuth, answerValid
         userId: res.locals.user.id
     });
 
-    try {
-      await answer.save();
-      res.redirect('../../questions/'+questionId);
-    } catch (err) {
-      res.render('answer-create', {
-        title: "Submit an Answer",
-        answer,
-        questionId,
-        error: err,
-        csrfToken: req.csrfToken(),
-      });
-    }
-  }));
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+        await answer.save();
+        res.redirect('../../questions/' + questionId);
+      } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('answer-create', {
+            title: "Submit an Answer",
+            answer,
+            questionId,
+            errors,
+            csrfToken: req.csrfToken(),
+          });
+      }
+    }));
 router.get("/:questionId(\\d+)", asyncHandler( async(req, res) => {
     const questionId = parseInt(req.params.questionId, 10);
     const answers = await db.Answer.findAll({where: {questionId: questionId}});
@@ -113,16 +116,17 @@ asyncHandler(async (req, res) => {
     }
 }));
 
-router.get('/book/delete/:id(\\d+)', requireAuth, csrfProtection,
+*/
+router.get('/delete/:id(\\d+)', requireAuth, csrfProtection,
 asyncHandler(async (req, res) => {
-    const bookId = parseInt(req.params.id, 10);
-    const book = await db.Book.findByPk(bookId);
+    const answerId = parseInt(req.params.id, 10);
+    const answer = await db.Answer.findByPk(bookId);
 
-    checkPermissions(book, res.locals.user);
+    checkPermissions(answer, res.locals.user);
 
-    res.render('book-delete', {
-        title: 'Delete Book',
-        book,
+    res.render('answer-delete', {
+        title: 'Delete Answer',
+        answer,
         csrfToken: req.csrfToken(),
     });
 }));
@@ -137,5 +141,4 @@ asyncHandler(async (req, res) => {
     await book.destroy();
     res.redirect('/');
 }));
-*/
 module.exports = router;
