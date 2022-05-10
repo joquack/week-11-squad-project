@@ -6,8 +6,8 @@ const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 const { requireAuth } = require('../auth');
 
-const checkPermissions = (book, currentUser) => {
-  if (book.userId !== currentUser.id) {
+const checkPermissions = (question, currentUser) => {
+  if (question.userId !== currentUser.id) {
     const err = new Error('Illegal operation.');
     err.status = 403; // Forbidden
     throw err;
@@ -59,7 +59,7 @@ router.post("/create", csrfProtection, requireAuth, questionValidators, asyncHan
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('question-create', {
           title: 'Create Question',
-          book,
+          question,
           errors,
           csrfToken: req.csrfToken(),
         });
@@ -76,7 +76,7 @@ router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
 
     res.render('question-edit', {
       title: 'Edit Question',
-      book,
+      question,
       csrfToken: req.csrfToken(),
     });
   }));
@@ -107,7 +107,7 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, questionValidators,
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render('question-edit', {
         title: 'Edit Question',
-        book: { ...question, questionId },
+        question: { ...question, questionId },
         errors,
         csrfToken: req.csrfToken(),
       });
