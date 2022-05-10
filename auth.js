@@ -13,6 +13,13 @@ const logoutUser = (req, res) => {
   delete req.session.auth;
 };
 
+const requireAuth = (req, res, next) => {
+  if (!res.locals.authenticated) {
+    return res.redirect('/users/login');
+  }
+  return next();
+};
+
 //This is what keeps the user loggin in during a session
 const restoreUser = async (req, res, next) => {
   //checking if a session exits, current when they're being logged in
@@ -41,5 +48,6 @@ const restoreUser = async (req, res, next) => {
 module.exports = {
   loginUser,
   logoutUser,
+  requireAuth,
   restoreUser,
 };
