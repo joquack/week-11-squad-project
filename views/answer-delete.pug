@@ -9,4 +9,4 @@ block content
       input(type='hidden' name='_csrf' value=csrfToken)
       input(type='hidden' name='questionId' value=answer.questionId)
       button(class='btn btn-danger' type='submit') Delete Answer
-      a(class='btn btn-warning ml-2' href='/' role='button') Cancel
+      a(class='btn btn-warning ml-2' href='/questions/'+answer.questionId role='button') Cancel
