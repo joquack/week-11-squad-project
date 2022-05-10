@@ -120,4 +120,27 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, questionValidators,
     }
   }));
 
+  router.get('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+
+    checkPermissions(question, res.locals.user);
+
+    res.render('question-delete', {
+      title: 'Delete Question',
+      question,
+      csrfToken: req.csrfToken(),
+    });
+  }));
+
+  router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+
+    checkPermissions(question, res.locals.user);
+
+    await question.destroy();
+    res.redirect('/questions');
+  }));
+
 module.exports = router;
