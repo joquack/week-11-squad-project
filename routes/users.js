@@ -14,10 +14,11 @@ const { check, validationResult } = require("express-validator");
 router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
+  const upperName = user.firstName.toUpperCase();
   try {
     res.render("user-profile", { user });
   } catch (error) {
-    res.send("Wrong");
+    res.redirect("user-login");
   }
 });
 
@@ -58,7 +59,12 @@ router.post(
 
         if (passwordMatch) {
           loginUser(req, res, user);
-          return res.redirect("/users");
+          return res.render("user-profile", {
+            title: `${
+              user.username.charAt(0).toUpperCase() + user.username.slice(1)
+            }`,
+            user,
+          });
         }
       }
 
@@ -76,11 +82,11 @@ router.post(
   })
 );
 
-router.post("/logout", (req, res) => {
-  logoutUser(req, res);
-  res.redirect("/users/login");
-});
-
+// router.post("/logout", (req, res) => {
+//   logoutUser(req, res);
+//   res.redirect("/users/login");
+// });
+//WHY IS THERE 2 LOGOUTS???
 router.post("/logout", (req, res) => {
   logoutUser(req, res);
   res.redirect("/users/login");
