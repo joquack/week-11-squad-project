@@ -1,0 +1,14 @@
+extends layout.pug
+
+block content
+    table
+        thead
+            tr
+                th(scope='col') Title
+                th(scope='col') Content
+                th(scope='col') User
+        tbody
+            tr
+                td= question.title
+                td= question.content
+                td= question.userId

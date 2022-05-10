@@ -22,6 +22,15 @@ router.get(
 );
 
 router.get(
+  "/:id(\\d+)",
+  asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+    res.render("question", { title: `Question ${questionId}`, question });
+  })
+);
+
+router.get(
   "/create",
   csrfProtection,
   requireAuth,
@@ -104,8 +113,7 @@ router.post(
     const questionId = parseInt(req.params.id, 10);
     const questionToUpdate = await db.Question.findByPk(questionId);
 
-    checkPermissions(book, res.locals.user);
-
+    checkPermissions(questionToUpdate, res.locals.user);
     const { title, content } = req.body;
 
     const question = {
@@ -127,6 +135,39 @@ router.post(
         csrfToken: req.csrfToken(),
       });
     }
+  })
+);
+
+router.get(
+  "/delete/:id(\\d+)",
+  requireAuth,
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+
+    checkPermissions(question, res.locals.user);
+
+    res.render("question-delete", {
+      title: "Delete Question",
+      question,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
+
+router.post(
+  "/delete/:id(\\d+)",
+  requireAuth,
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+
+    checkPermissions(question, res.locals.user);
+
+    await question.destroy();
+    res.redirect("/questions");
   })
 );
 

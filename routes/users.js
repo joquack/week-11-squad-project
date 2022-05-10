@@ -14,7 +14,6 @@ const { check, validationResult } = require("express-validator");
 router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
-  const upperName = user.firstName.toUpperCase();
   try {
     res.render("user-profile", { user });
   } catch (error) {
