@@ -11,9 +11,10 @@ html
       form(action='/users/logout' method='post')
         button(type='submit') Logout
     else
-      span
-        a.btn(href='/users/login') Login
-        a.btn(href='/users/Signup') Signup
+      div(class='login-header')
+        span
+          a.btn(href='/users/login') Login
+          a.btn(href='/users/Signup') Signup
     .container
       h2 #{title}
       block content

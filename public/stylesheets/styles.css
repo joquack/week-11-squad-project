@@ -2,7 +2,11 @@ body {
     background-color: #181A1B;
     color: white;
     font-family: 'Whitney', sans-serif;
-
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
 
 a {
@@ -16,16 +20,33 @@ a {
     text-overflow: clip;
     background: #f57c00;
     box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
-    text-shadow: -1px -1px 0 rgba(15, 73, 168, 0.66);
     margin: 5px;
-
-
+    font-size: 16px;
 }
 
 a:hover {
     background-color: #bb4d00;
     transition: transform .5s;
 }
+
+/* LAYOUT */
+
+.login-header {
+    border: solid white;
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.login-form {
+    display: grid;
+    gap: 10px;
+}
+
+.container {
+    border: solid white;
+    grid-area: 2 / 1 / 5 / 2;
+}
+
+
 
 
 /*
