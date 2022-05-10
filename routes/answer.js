@@ -79,10 +79,10 @@ asyncHandler(async (req, res) => {
 
 router.post('/edit/:id(\\d+)', requireAuth, csrfProtection,
 asyncHandler(async (req, res) => {
-    const bookId = parseInt(req.params.id, 10);
-    const bookToUpdate = await db.Book.findByPk(bookId);
+    const answerId = parseInt(req.params.id, 10);
+    const answerToUpdate = await db.answer.findByPk(answerId);
 
-    checkPermissions(bookToUpdate, res.locals.user);
+    checkPermissions(answerToUpdate, res.locals.user);
 
     const {
         title,
@@ -92,7 +92,7 @@ asyncHandler(async (req, res) => {
         publisher,
     } = req.body;
 
-    const book = {
+    const answer = {
         title,
         author,
         releaseDate,
@@ -103,13 +103,13 @@ asyncHandler(async (req, res) => {
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-        await bookToUpdate.update(book);
+        await answerToUpdate.update(answer);
         res.redirect('/');
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
-        res.render('book-edit', {
-            title: 'Edit Book',
-            book: { ...book, bookId },
+        res.render('answer-edit', {
+            title: 'Edit answer',
+            answer: { ...answer, answerId },
             errors,
             csrfToken: req.csrfToken(),
         });
@@ -120,8 +120,7 @@ asyncHandler(async (req, res) => {
 router.get('/delete/:id(\\d+)', requireAuth, csrfProtection,
 asyncHandler(async (req, res) => {
     const answerId = parseInt(req.params.id, 10);
-    const answer = await db.Answer.findByPk(bookId);
-
+    const answer = await db.Answer.findByPk(answerId);
     checkPermissions(answer, res.locals.user);
 
     res.render('answer-delete', {
@@ -131,14 +130,14 @@ asyncHandler(async (req, res) => {
     });
 }));
 
-router.post('/book/delete/:id(\\d+)', requireAuth, csrfProtection,
-asyncHandler(async (req, res) => {
-    const bookId = parseInt(req.params.id, 10);
-    const book = await db.Book.findByPk(bookId);
+router.post('/delete/:id(\\d+)', requireAuth, csrfProtection,
+    asyncHandler(async (req, res) => {
+    const answerId = parseInt(req.params.id, 10);
+        const answer = await db.Answer.findByPk(answerId);
+        const questionId = answer.questionId
+    checkPermissions(answer, res.locals.user);
 
-    checkPermissions(book, res.locals.user);
-
-    await book.destroy();
-    res.redirect('/');
+    await answer.destroy();
+    res.redirect('../../questions/' + questionId);
 }));
 module.exports = router;
