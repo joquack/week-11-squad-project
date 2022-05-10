@@ -2,11 +2,24 @@ const bcrypt = require("bcryptjs");
 const db = require("../db/models");
 const express = require("express");
 const router = express.Router();
-const { loginUser, logoutUser } = require("../auth.js");
+const {
+  loginUser,
+  logoutUser,
+  requireAuth,
+  restoreUser,
+} = require("../auth.js");
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 
-router.get("/user", (req, res) => {});
+router.get("/", requireAuth, restoreUser, async (req, res) => {
+  const userId = await req.session.auth.userId;
+  const user = await db.User.findByPk(userId);
+  try {
+    res.render("user-profile", { user });
+  } catch (error) {
+    res.send("Wrong");
+  }
+});
 
 router.get("/login", csrfProtection, (req, res) => {
   res.render("user-login", {
