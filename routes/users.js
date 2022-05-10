@@ -11,15 +11,17 @@ const {
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 
-router.get("/", restoreUser, requireAuth, async (req, res) => {
+router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
-  try {
-    console.log(`REALLY THIS SHIT?`);
-    res.render("user-profile", { user });
-  } catch (error) {
-    res.redirect("user-login");
-  }
+  res.render("user-profile", { user });
+
+  // try {
+  //   console.log(`REALLY THIS SHIT?`);
+  //   res.render("user-profile", { user });
+  // } catch (error) {
+  //   res.redirect("user-login");
+  // }
 });
 
 router.get("/login", csrfProtection, (req, res) => {
