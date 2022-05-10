@@ -18,16 +18,19 @@ router.get("/", requireAuth, restoreUser, async (req, res) => {
   res.render("user-profile", { user });
 });
 
-router.get("/:id/:userName", async (req, res) => {
+router.get("/:id(\\d+)/:userName", async (req, res) => {
   const numId = parseInt(req.params.id);
   const name = req.params.userName;
   const user = await db.User.findByPk(numId);
-
-  if (user.firstName === name && numId === user.id) {
-    return res.render("user-profile");
+  try {
+    if (user.firstName === name && numId === user.id) {
+      return res.render("user-profile");
+    }
+  } catch (error) {
+    res.render("profile-not-found");
   }
-  res.render("profile-not-found");
 });
+
 router.get("/login", csrfProtection, (req, res) => {
   res.render("user-login", {
     title: "Login",

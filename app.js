@@ -48,6 +48,11 @@ app.use("/questions", questionRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+//catch user profiles that don't exist
+app.use(function (req, res, next) {
+  console.log(req.params, `HERGHEHSEHHTSEHSEHSEHES`);
+  next();
+});
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -57,7 +62,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("page-not-found");
+  res.send("Complete dogshit");
 });
 
 module.exports = app;
