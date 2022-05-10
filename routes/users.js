@@ -11,8 +11,6 @@ const { check, validationResult } = require("express-validator");
 router.get(
   "/",
   asyncHandler((req, res) => {
-    // const user = await db.User.findPk(req.user.id);
-
     res.render("index", {
       title: "User Page",
     });
