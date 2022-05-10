@@ -3,7 +3,6 @@ const router = new express.Router();
 const db = require("../db/models");
 const { csrfProtection, asyncHandler } = require("./utils.js");
 
-const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 const { requireAuth } = require("../auth");
 
