@@ -88,7 +88,7 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators,
 
         const {body, questionId} = req.body;
 
-        const answer = {body, questionId};
+        const answer = {body, questionId, id:answerId};
 
         const validatorErrors = validationResult(req);
 
