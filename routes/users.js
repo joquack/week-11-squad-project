@@ -11,7 +11,7 @@ const {
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 
-router.get("/", requireAuth, restoreUser, async (req, res) => {
+router.get("/", restoreUser, requireAuth, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
   try {
@@ -59,12 +59,13 @@ router.post(
 
         if (passwordMatch) {
           loginUser(req, res, user);
-          return res.render("user-profile", {
-            title: `${
-              user.username.charAt(0).toUpperCase() + user.username.slice(1)
-            }`,
-            user,
-          });
+          return res.redirect("/");
+          // return res.render("user-profile", {
+          //   title: `${
+          //     user.username.charAt(0).toUpperCase() + user.username.slice(1)
+          //   }`,
+          //   user,
+          // });
         }
       }
 
