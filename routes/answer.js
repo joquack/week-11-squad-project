@@ -24,8 +24,12 @@ router.get("/create", csrfProtection, requireAuth, asyncHandler( async(req, res)
     });
   })
 );
-
-router.post("/create", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
+const answerValidators = [
+    check("body")
+      .exists({ checkFalsy: true })
+      .withMessage("Please provide an answer"),
+  ];
+router.post("/create", csrfProtection, requireAuth, answerValidators, asyncHandler(async (req, res) => {
     const { questionId, body } = req.body;
     console.log(questionId)
     console.log(body)
@@ -58,7 +62,7 @@ asyncHandler(async (req, res) => {
     });
 }));
 
-router.post('/book/edit/:id(\\d+)', requireAuth, csrfProtection, bookValidators,
+router.post('/edit/:id(\\d+)', requireAuth, csrfProtection,
 asyncHandler(async (req, res) => {
     const bookId = parseInt(req.params.id, 10);
     const bookToUpdate = await db.Book.findByPk(bookId);
