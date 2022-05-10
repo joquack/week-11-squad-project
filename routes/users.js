@@ -10,12 +10,11 @@ const { check, validationResult } = require("express-validator");
 
 router.get(
   "/",
-  asyncHandler(async (req, res) => {
-    const user = db.User.findPk(req.user.id);
+  asyncHandler((req, res) => {
+    // const user = await db.User.findPk(req.user.id);
 
     res.render("index", {
       title: "User Page",
-      user,
     });
   })
 );
@@ -149,8 +148,8 @@ router.post(
   userValidators,
   asyncHandler(async (req, res) => {
     const { username, firstName, lastName, email, password } = req.body;
-
-    const user = db.User.build({
+    console.log(req.body);
+    const user = await db.User.build({
       username,
       firstName,
       lastName,
@@ -164,6 +163,7 @@ router.post(
       user.hashPassword = hashPassword;
       await user.save();
       loginUser(req, res, user);
+      console.log(`WHERE ARE HERE`);
       res.redirect("/users");
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
