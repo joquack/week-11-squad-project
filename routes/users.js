@@ -68,6 +68,11 @@ router.post("/logout", (req, res) => {
   res.redirect("/users/login");
 });
 
+router.post("/logout", (req, res) => {
+  logoutUser(req, res);
+  res.redirect("/users/login");
+});
+
 router.get("/signup", csrfProtection, (req, res) => {
   const user = db.User.build();
   res.render("user-signup", {
@@ -161,7 +166,6 @@ router.post(
       user.hashPassword = hashPassword;
       await user.save();
       loginUser(req, res, user);
-      console.log(`WHERE ARE HERE`);
       res.redirect("/users");
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
