@@ -15,10 +15,12 @@ const checkPermissions = (answer, currentUser) => {
 };
 
 
-router.get("/create", csrfProtection, requireAuth, asyncHandler( async(req, res) => {
+router.get("/:questionId(\\d+)/create", csrfProtection, requireAuth, asyncHandler( async(req, res) => {
     const answer = await db.Answer.build();
+    const questionId = parseInt(req.params.questionId, 10);
     res.render("answer-create", {
         answer,
+        questionId,
         csrfToken: req.csrfToken(),
         title: "Submit an Answer"
     });
@@ -29,25 +31,35 @@ const answerValidators = [
       .exists({ checkFalsy: true })
       .withMessage("Please provide an answer"),
   ];
-router.post("/create", csrfProtection, requireAuth, answerValidators, asyncHandler(async (req, res) => {
+router.post("/:questionId(\\d+)/create", csrfProtection,requireAuth, answerValidators, asyncHandler(async (req, res) => {
     const { questionId, body } = req.body;
-    console.log(questionId)
-    console.log(body)
-    const answer = await db.Answer.create({
+
+    const answer = await db.Answer.build({
         questionId,
         body,
         userId: res.locals.user.id
     });
-    res.redirect(`/answers/${questionId}`);
-  })
-);
 
+    try {
+      await answer.save();
+      res.redirect('../../questions/'+questionId);
+    } catch (err) {
+      res.render('answer-create', {
+        title: "Submit an Answer",
+        answer,
+        questionId,
+        error: err,
+        csrfToken: req.csrfToken(),
+      });
+    }
+  }));
 router.get("/:questionId(\\d+)", asyncHandler( async(req, res) => {
     const questionId = parseInt(req.params.questionId, 10);
     const answers = await db.Answer.findAll({where: {questionId: questionId}});
     res.render("answer-list", {title: "Answers", answers});
   })
 );
+/*
 router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
 asyncHandler(async (req, res) => {
     const answerId = parseInt(req.params.id, 10);
@@ -101,7 +113,6 @@ asyncHandler(async (req, res) => {
     }
 }));
 
-/*
 router.get('/book/delete/:id(\\d+)', requireAuth, csrfProtection,
 asyncHandler(async (req, res) => {
     const bookId = parseInt(req.params.id, 10);
