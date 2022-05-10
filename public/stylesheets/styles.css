@@ -1,0 +1,78 @@
+body {
+    background-color: #181A1B;
+    color: white;
+    font-family: 'Whitney', sans-serif;
+
+}
+
+a {
+    display: inline-block;
+    box-sizing: content-box;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #018dc4;
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 0.9);
+    text-overflow: clip;
+    background: #f57c00;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
+    text-shadow: -1px -1px 0 rgba(15, 73, 168, 0.66);
+    margin: 5px;
+
+
+}
+
+a:hover {
+    background-color: #bb4d00;
+    transition: transform .5s;
+}
+
+
+/*
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST
+*/
+
+/* .btn {
+    text-transform: uppercase;
+}
+.btn:hover .btn-slide-show-text1 {
+    margin-left: 65px;
+}
+
+.btn-pushable {
+    padding: 15px;
+    margin-right: 5px;
+    height: 50px;
+    width: 180px;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    font-family: inherit;
+    border-radius: 3px;
+}
+
+.btn-pushable:hover {
+    transition: all 0.1s ease-in 0s;
+}
+
+.btn-pushable:active {
+    transform: translateY(4px);
+    border-bottom-width: 2px;
+    box-shadow: none;
+}
+
+.btn-pushable--orange {
+    background: #f57c00;
+    box-shadow: #f57c00 0px 6px 0px;
+    border-bottom: 3px solid #bb4d00;
+}
+
+.btn-pushable--orange:hover {
+    background: #bb4d00;
+    box-shadow: #bb4d00 0px 4px 1px;
+} */

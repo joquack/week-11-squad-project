@@ -3,7 +3,8 @@ html
   head
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
-    title Reading List - #{title}
+    title J3C Group - #{title}
+    link(rel='stylesheet' href='../stylesheets/styles.css')
   body
     if locals.authenticated
       span Welcome #{user.firstName}!
@@ -11,8 +12,8 @@ html
         button(type='submit') Logout
     else
       span
-        a(href='/users/login') Login
-        a(href='/users/Signup') Signup
+        a.btn(href='/users/login') Login
+        a.btn(href='/users/Signup') Signup
     .container
       h2 #{title}
       block content
