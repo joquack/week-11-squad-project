@@ -1,21 +1,23 @@
-const db = require('./db/models');
+const db = require("./db/models");
 
+//The first middleware a user enters when a user is logging
+//Only works if there is an account present
 const loginUser = (req, res, user) => {
   req.session.auth = {
     userId: user.id,
   };
 };
 
+//Logging out a user, delets the req.session.auth
 const logoutUser = (req, res) => {
   delete req.session.auth;
 };
 
+//This is what keeps the user loggin in during a session
 const restoreUser = async (req, res, next) => {
-  // Log the session object to the console
-  // to assist with debugging.
-//   console.log(req.session);
-
+  //checking if a session exits, current when they're being logged in
   if (req.session.auth) {
+    //grabs userId
     const { userId } = req.session.auth;
 
     try {
