@@ -20,6 +20,13 @@ router.get("/", asyncHandler( async(req, res) => {
   })
 );
 
+router.get("/:id(\\d+)", asyncHandler( async(req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+    res.render("question", {title: `Question ${questionId}`, question});
+  })
+);
+
 router.get("/create", csrfProtection, requireAuth, asyncHandler( async(req, res) => {
     const question = await db.Question.build();
     res.render("question-create", {
@@ -86,8 +93,7 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, questionValidators,
     const questionId = parseInt(req.params.id, 10);
     const questionToUpdate = await db.Question.findByPk(questionId);
 
-    checkPermissions(book, res.locals.user);
-
+    checkPermissions(questionToUpdate, res.locals.user);
     const {
       title,
       content,

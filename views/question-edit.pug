@@ -4,7 +4,7 @@ include utils.pug
 
 block content
   +validationErrorSummary(errors)
-  form(action=`/question/edit/${question.id}` method='post')
+  form(action=`/questions/edit/${question.id}` method='post')
     include question-form-fields.pug
     div
       button(type='submit') Update Question
