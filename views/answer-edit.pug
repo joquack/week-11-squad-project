@@ -3,10 +3,10 @@ extends layout.pug
 block content
   if errors
     div(class='alert alert-danger' role='alert')
-      p The following error(s) occurred:
-      ul
+      p(class=) The following error(s) occurred:
+      ul(class='answer-edit-error-list')
         each error in errors
-          li= error
+          li(class='answer-edit-error')= error
   form#edit-answers-content(action=`/answers/edit/${answer.id}` method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
     input(type='hidden' name='questionId' value=answer.questionId)
