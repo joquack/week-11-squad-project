@@ -12,32 +12,18 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Home | StackCode
-  body 
+  body
 block content
-<<<<<<< HEAD
-  p Welcome to your the default home page! Looks pretty bare doesn't it?
-
-  h1 (a) LeetSpring / (b) PatternAccum / (c) PatternSpring
-
-  img(src="./pattern-splash-page", alt="Pattern")
-
-  div
-    h2 Conquer Multiplicty
-    h2 Understand 14 Patterns
-    h2 Push with a Cohort/Community
-    h2 Ace the Interview
-=======
   p This is where questions will live!
   if locals.authenticated
     span So what do you want to do, #{user.firstName.charAt(0).toUpperCase() + user.username.slice(1)}?
-    div 
+    div
       a(href=`/users/${user.id}/${user.firstName}`) My Profile
-    div   
+    div
       a(href=`/users`) All Users
     form(action='/users/logout' method='post')
       button(type='submit') Logout
-  else 
+  else
     div(class='py-4')
       a(href='/users/login') Login
       a(href='/users/signup') Sign Up!
->>>>>>> e774358dbbe04031f49b17b8fd923f24e784220e
