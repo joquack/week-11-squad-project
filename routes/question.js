@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const db = require("../db/models");
+const {User, Question, Answer, AnswerVote} = require("../db/models");
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 const { requireAuth } = require("../auth");
@@ -23,7 +24,10 @@ router.get("/", asyncHandler(async (req, res) => {
 router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   const questionId = parseInt(req.params.id, 10);
   const question = await db.Question.findByPk(questionId);
-  const answers = await db.Answer.findAll({ where: { questionId: questionId } });
+  const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
+  console.log('*****************************************************');
+  console.log(answers);
+  console.log('*****************************************************');
   res.render("question", { title: `${question.title}`, question, answers});
 })
 );
