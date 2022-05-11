@@ -25,7 +25,7 @@ router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   const questionId = parseInt(req.params.id, 10);
   const question = await db.Question.findByPk(questionId);
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
-  console.log(answers, 'OVER HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+  console.log(answers)
   res.render("question", { title: `${question.title}`, question, answers});
 })
 );
