@@ -46,15 +46,14 @@ store.sync();
 
 app.use(restoreUser);
 
-
 app.use(indexRouter);
 app.use(userLogin);
 app.use(signupRouter);
 app.use(userProfile);
 app.use(userLogout);
+app.use("/answers", answerRouter);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
