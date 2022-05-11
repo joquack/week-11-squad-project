@@ -21,13 +21,24 @@ router.get("/", requireAuth, restoreUser, async (req, res) => {
 router.get("/:id(\\d+)/:userName", async (req, res) => {
   const numId = parseInt(req.params.id);
   const name = req.params.userName;
-  const user = await db.User.findByPk(numId);
+  let user = await db.User.findByPk(numId);
+  // let currentUser = res.locals.user;
+  // console.log(user);
+  // console.log(currentUser.firstName, user.firstName, `First tiem`);
   try {
-    if (user.firstName === name && numId === user.id) {
+    if (
+      user.firstName === name &&
+      numId === user.id &&
+      req.session.auth.userId === numId
+    ) {
       return res.render("user-profile");
     }
+    if (user.id && user.firstName == name) {
+      return res.render("profile-found-logged", { name });
+    }
+    res.render(`profile-not-found`);
   } catch (error) {
-    res.render("profile-not-found");
+    res.render("page-not-found");
   }
 });
 
@@ -92,11 +103,6 @@ router.post(
   })
 );
 
-// router.post("/logout", (req, res) => {
-//   logoutUser(req, res);
-//   res.redirect("/users/login");
-// });
-//WHY IS THERE 2 LOGOUTS???
 router.post("/logout", (req, res) => {
   logoutUser(req, res);
   res.redirect("/users/login");

@@ -1,13 +1,21 @@
-extends layout
+//- extends layout
 
 //- append head
   //- add page specific styles by appending to the head
   //- link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   //- script(src="/javascripts/index.js" type="module" defer)
-
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Home | StackCode
+  body 
 block content
   p Welcome to your the default home page! Looks pretty bare doesn't it?
   if locals.authenticated
     span So what do you want to do, #{user.firstName}?
-    a(href=`/users/${user.id}/${user.firstName}`) My Profile
+    div 
+      a(href=`/users/${user.id}/${user.firstName}`) My Profile

@@ -15,7 +15,7 @@ const logoutUser = (req, res) => {
 
 const requireAuth = (req, res, next) => {
   if (!res.locals.authenticated) {
-    return res.render("page-not-found");
+    return res.render("not-auth");
   }
   return next();
 };
