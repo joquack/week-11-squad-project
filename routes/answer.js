@@ -58,7 +58,7 @@ router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerVali
 }));
 router.get("/:questionId(\\d+)", asyncHandler(async (req, res) => {
     const questionId = parseInt(req.params.questionId, 10);
-    const answers = await db.Answer.findAll({ where: { questionId: questionId } });
+    const answers = await db.Answer.findAll({where: { questionId: questionId } });
     res.render("answer-list", { title: "Answers", answers });
 })
 );
