@@ -15,7 +15,7 @@ module.exports = {
       },
       body: {
         allowNull: false,
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING(5000)
       },
       userId: {
         allowNull: false,
