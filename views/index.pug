@@ -16,6 +16,6 @@ html(lang="en")
 block content
   p Welcome to your the default home page! Looks pretty bare doesn't it?
   if locals.authenticated
-    span So what do you want to do, #{user.firstName}?
+    span So what do you want to do, #{user.firstName.charAt(0).toUpperCase() + user.username.slice(1)}?
     div 
       a(href=`/users/${user.id}/${user.firstName}`) My Profile

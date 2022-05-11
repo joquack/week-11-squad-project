@@ -10,7 +10,6 @@ const {
 } = require("../auth.js");
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
-// const { where } = require("sequelize/types");
 
 router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
@@ -22,9 +21,6 @@ router.get("/:id(\\d+)/:userName", async (req, res) => {
   const numId = parseInt(req.params.id);
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
-  // let currentUser = res.locals.user;
-  // console.log(user);
-  // console.log(currentUser.firstName, user.firstName, `First tiem`);
   try {
     if (
       user.firstName === name &&
@@ -33,12 +29,15 @@ router.get("/:id(\\d+)/:userName", async (req, res) => {
     ) {
       return res.render("user-profile");
     }
-    if (user.id && user.firstName == name) {
+    if (user.firstName == name) {
       return res.render("profile-found-logged", { name });
     }
-    res.render(`profile-not-found`);
+    return res.render(`not-logged`);
   } catch (error) {
-    res.render("page-not-found");
+    if (user) {
+      return res.render("not-logged", { name: user.firstName });
+    }
+    res.render("profile-not-found", { name });
   }
 });
 
