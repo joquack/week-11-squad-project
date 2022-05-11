@@ -29,14 +29,19 @@ router.get("/:id(\\d+)/:userName", async (req, res) => {
     ) {
       return res.render("user-profile");
     }
-    if (user.firstName == name) {
+    if (user.firstName == name && req.session.auth.userId === numId) {
       return res.render("profile-found-logged", { name });
     }
-    return res.render(`not-logged`);
+    if (user.firstName != name) {
+      return res.render("profile-not-found", { name });
+    }
+
+    return res.render(`not-logged`, { name });
   } catch (error) {
     if (user) {
       return res.render("not-logged", { name: user.firstName });
     }
+    console.log(`THERES NO WAY`);
     res.render("profile-not-found", { name });
   }
 });
