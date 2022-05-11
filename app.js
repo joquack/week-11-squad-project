@@ -8,12 +8,14 @@ const session = require("express-session");
 const { sessionSecret } = require("./config");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const questionRouter = require("./routes/question");
 const userLogin = require("./routes/userRoutes/userlogin");
 const signupRouter = require("./routes/userRoutes/usersignup");
 const userProfile = require("./routes/userRoutes/userprofile");
 const userLogout = require("./routes/userRoutes/userlogout");
+
+const answerRouter = require("./routes/answer");
+
 const { restoreUser } = require("./auth");
 
 const app = express();
@@ -44,6 +46,7 @@ store.sync();
 
 app.use(restoreUser);
 
+
 app.use(indexRouter);
 app.use(userLogin);
 app.use(signupRouter);
@@ -51,6 +54,7 @@ app.use(userProfile);
 app.use(userLogout);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
