@@ -14,64 +14,65 @@ const checkPermissions = (question, currentUser) => {
   }
 };
 
-router.get("/", asyncHandler( async(req, res) => {
-    const questions = await db.Question.findAll();
-    res.render("question-list", {title: "Questions", questions});
-  })
+router.get("/", asyncHandler(async (req, res) => {
+  const questions = await db.Question.findAll();
+  res.render("question-list", { title: "Questions", questions });
+})
 );
 
-router.get("/:id(\\d+)", asyncHandler( async(req, res) => {
-    const questionId = parseInt(req.params.id, 10);
-    const question = await db.Question.findByPk(questionId);
-    res.render("question", {title: `Question ${questionId}`, question});
-  })
+router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+  const questionId = parseInt(req.params.id, 10);
+  const question = await db.Question.findByPk(questionId);
+  const answers = await db.Answer.findAll({ where: { questionId: questionId } });
+  res.render("question", { title: `${question.title}`, question, answers});
+})
 );
 
-router.get("/create", csrfProtection, requireAuth, asyncHandler( async(req, res) => {
-    const question = await db.Question.build();
-    res.render("question-create", {
-        question,
-        csrfToken: req.csrfToken(),
-        title: "Create Question"
-    });
-  })
+router.get("/create", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
+  const question = await db.Question.build();
+  res.render("question-create", {
+    question,
+    csrfToken: req.csrfToken(),
+    title: "Create Question"
+  });
+})
 );
 
 const questionValidators = [
-    check('title')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a value for Title')
-      .isLength({ max: 255 })
-      .withMessage('Title must not be more than 255 characters long'),
-    check('content')
-      .exists({ checkFalsy: true })
-      .withMessage('Please provide a value for content'),
-  ];
+  check('title')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Title')
+    .isLength({ max: 255 })
+    .withMessage('Title must not be more than 255 characters long'),
+  check('content')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for content'),
+];
 
-router.post("/create", csrfProtection, requireAuth, questionValidators, asyncHandler( async(req, res) => {
-    const { title, content } = req.body;
+router.post("/create", csrfProtection, requireAuth, questionValidators, asyncHandler(async (req, res) => {
+  const { title, content } = req.body;
 
-    const question = db.Question.build({
-        title,
-        content,
-        userId: res.locals.user.id,
+  const question = db.Question.build({
+    title,
+    content,
+    userId: res.locals.user.id,
+  });
+
+  const validatorErrors = validationResult(req);
+
+  if (validatorErrors.isEmpty()) {
+    await question.save();
+    res.redirect('/questions');
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render('question-create', {
+      title: 'Create Question',
+      question,
+      errors,
+      csrfToken: req.csrfToken(),
     });
-
-    const validatorErrors = validationResult(req);
-
-    if (validatorErrors.isEmpty()) {
-        await question.save();
-        res.redirect('/questions');
-      } else {
-        const errors = validatorErrors.array().map((error) => error.msg);
-        res.render('question-create', {
-          title: 'Create Question',
-          question,
-          errors,
-          csrfToken: req.csrfToken(),
-        });
-      }
-  })
+  }
+})
 );
 
 router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
@@ -100,8 +101,8 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, questionValidators,
     } = req.body;
 
     const question = {
-        title,
-        content,
+      title,
+      content,
     };
 
     const validatorErrors = validationResult(req);
@@ -120,27 +121,27 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, questionValidators,
     }
   }));
 
-  router.get('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
-    const questionId = parseInt(req.params.id, 10);
-    const question = await db.Question.findByPk(questionId);
+router.get('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const questionId = parseInt(req.params.id, 10);
+  const question = await db.Question.findByPk(questionId);
 
-    checkPermissions(question, res.locals.user);
+  checkPermissions(question, res.locals.user);
 
-    res.render('question-delete', {
-      title: 'Delete Question',
-      question,
-      csrfToken: req.csrfToken(),
-    });
-  }));
+  res.render('question-delete', {
+    title: 'Delete Question',
+    question,
+    csrfToken: req.csrfToken(),
+  });
+}));
 
-  router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
-    const questionId = parseInt(req.params.id, 10);
-    const question = await db.Question.findByPk(questionId);
+router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+  const questionId = parseInt(req.params.id, 10);
+  const question = await db.Question.findByPk(questionId);
 
-    checkPermissions(question, res.locals.user);
+  checkPermissions(question, res.locals.user);
 
-    await question.destroy();
-    res.redirect('/questions');
-  }));
+  await question.destroy();
+  res.redirect('/questions');
+}));
 
 module.exports = router;

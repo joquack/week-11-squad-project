@@ -1,14 +1,16 @@
 extends layout.pug
 
 block content
-    table
-        thead
-            tr
-                th(scope='col') Title
-                th(scope='col') Content
-                th(scope='col') User
-        tbody
-            tr
-                td= question.title
-                td= question.content
-                td= question.userId
+    div= question.content
+    div
+        a(href='/answers/'+question.id+'/create') Submit New Answer
+    if answers && answers.length > 0
+        h3 Answers
+        each answer in answers
+            div
+                div= answer.body
+                div
+                    a(class='btn btn-primary' href=`/answers/edit/${answer.id}` role='button') Edit
+                    a(class='btn btn-danger ml-2' href=`/answers/delete/${answer.id}` role='button') Delete
+    else
+        p: em There are no answers yet.
