@@ -54,7 +54,8 @@ app.use(userProfile);
 app.use(userLogout);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);
-
+app.use("/answers", answerRouter);
+//changes
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
