@@ -35,6 +35,13 @@ router.get("/:id(\\d+)/:userName", async (req, res) => {
     if (user.firstName != name) {
       return res.render("profile-not-found", { name });
     }
+    if (user.firstName == name && req.session.auth.userId != numId) {
+      return res.render("limited-view", {
+        user,
+        name,
+        id: req.session.auth.userId,
+      });
+    }
 
     return res.render(`not-logged`, { name });
   } catch (error) {

@@ -1,0 +1,13 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{name.charAt(0).toUpperCase() + name.slice(1)}'s Profile | StackCode 
+  body
+    if id 
+      p Welcome to #{name.charAt(0).toUpperCase() + name.slice(1)}'s Profile
+    else
+      a(href='/users/login') Login To See #{name.charAt(0).toUpperCase() + name.slice(1)}'s Profile
+      p #{name.charAt(0).toUpperCase() + name.slice(1)}
+include utils.pug
