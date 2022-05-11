@@ -57,7 +57,6 @@ router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerVali
     }
 }));
 
-
 router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
     asyncHandler(async (req, res) => {
         const answerId = parseInt(req.params.id, 10);
