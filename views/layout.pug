@@ -12,13 +12,13 @@ html
       if locals.authenticated
         div#welcome-message Welcome #{user.firstName}!
         form(action='/users/logout' method='post')
-          button(class='logout-btn' type='submit') Logout
+          button(class='logout-btn btn' type='submit') Logout
       else
         div(class='routes-')
         div(class='login-header')
           span
-            a.btn(href='/users/login') Login
-            a.btn(href='/users/Signup') Signup
+            a(href='/users/login' class='login-btn btn') Login
+            a(href='/users/Signup'  class='signup-btn btn') Signup
 
 
     .main-content

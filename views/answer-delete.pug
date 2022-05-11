@@ -1,12 +1,10 @@
 extends layout.pug
 
 block content
-  h3= answer.title
-  div
-    p.delete-question Proceed with deleting this answer?
-  div
-    form(action=`/answers/delete/${answer.id}` method='post')
+  div(class='delete-answer')
+    p(id='delete-answer-text') Proceed with deleting this answer?
+    form(action=`/answers/delete/${answer.id}` method='post' class='delete-cancel-btns')
       input(type='hidden' name='_csrf' value=csrfToken)
       input(type='hidden' name='questionId' value=answer.questionId)
-      button(class='btn btn-danger' type='submit') Delete Answer
-      a(class='btn btn-warning ml-2' href='/questions/'+answer.questionId role='button') Cancel
+      button(class='btn delete-answer-btn' type='submit') Delete Answer
+      a(class='btn cancel-answer-btn' href='/questions/'+answer.questionId role='button') Cancel
