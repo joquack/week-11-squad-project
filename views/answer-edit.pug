@@ -3,16 +3,16 @@ extends layout.pug
 block content
   if errors
     div(class='alert alert-danger' role='alert')
-      p The following error(s) occurred:
-      ul
+      p(class=) The following error(s) occurred:
+      ul(class='answer-edit-error-list')
         each error in errors
-          li= error
-  form(action=`/answers/edit/${answer.id}` method='post')
+          li(class='answer-edit-error')= error
+  form#edit-answers-content(action=`/answers/edit/${answer.id}` method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
     input(type='hidden' name='questionId' value=answer.questionId)
-    div(class='form-group')
+    div(class='edit-answer')
       label(for='title') Answer
       input(type='text' name='body' value=answer.body )
-    div(class='py-4')
-      button(type='submit' class='btn btn-primary') Update Answer
-      a(href='/questions/'+answer.questionId class='btn btn-warning ml-2') Cancel
+    div(class='edit-answer-btns btn')
+      button(type='submit' class='btn update-answer-btn') Update Answer
+      a(href='/questions/'+answer.questionId class='btn cancel-edit-btn') Cancel
