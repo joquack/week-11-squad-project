@@ -1,8 +1,9 @@
 extends question.pug
 
 block content
-  div
-    a(href='/answers/create') Submit New Answer
+  if locals.authenticated
+    div
+      a(href='/answers/create' class='submit-new-answer btn') Submit New Answer
   if answers && answers.length > 0
     table
       thead
@@ -11,9 +12,10 @@ block content
       tbody
         each answer in answers
           tr
-            td= answer.body
-            td
-                a(class='btn btn-primary' href=`/answers/edit/${answer.id}` role='button') Edit
-                a(class='btn btn-danger ml-2' href=`/answers/delete/${answer.id}` role='button') Delete
+            td(class='answer')= answer.body
+            if locals.authenticated
+              td(class='edit-delete-answers')
+                  a(class='edit-answer-btn btn' href=`/answers/edit/${answer.id}` role='button') Edit
+                  a(class='delete-answer-btn btn' href=`/answers/delete/${answer.id}` role='button') Delete
   else
     p: em There are no answers yet.

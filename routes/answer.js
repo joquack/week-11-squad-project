@@ -57,12 +57,14 @@ router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerVali
     }
 }));
 router.get("/:questionId(\\d+)", asyncHandler(async (req, res) => {
+    console.log(res.locals)
     const questionId = parseInt(req.params.questionId, 10);
     const answers = await db.Answer.findAll({ where: { questionId: questionId } });
     res.render("answer-list", { title: "Answers", answers });
 })
 );
-/*********************************************************/
+
+
 router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
     asyncHandler(async (req, res) => {
         const answerId = parseInt(req.params.id, 10);
@@ -107,16 +109,8 @@ router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators,
             });
         }
     }));
-//     const validatorErrors = validationResult(req);
-    //     if (validatorErrors.isEmpty()) {
-    //         await answerToUpdate.update(answer);
-    //         res.redirect('../../questions/' + questionId);
-    //     } else {
-    //         const errors = validatorErrors.array().map((error) => error.msg);
-    //         res.redirect('/answers/edit/'+answerId)
-    //     }
-    // }));
-/*********************************************************/
+
+
 router.get('/delete/:id(\\d+)', requireAuth, csrfProtection,
     asyncHandler(async (req, res) => {
         const answerId = parseInt(req.params.id, 10);
