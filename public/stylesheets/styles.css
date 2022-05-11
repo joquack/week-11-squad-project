@@ -32,18 +32,27 @@ a:hover {
 /* LAYOUT */
 
 .login-header {
+    display: grid;
     border: solid white;
-    grid-area: 1 / 1 / 2 / 2;
+    grid-area: 1 / 5 / 2 / 6;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
 }
 
 .login-form {
     display: grid;
     gap: 10px;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
 }
 
 .container {
     border: solid white;
-    grid-area: 2 / 1 / 5 / 2;
+    grid-area: 2 / 2 / 5 / 5;
 }
 
 
