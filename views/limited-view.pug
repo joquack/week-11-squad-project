@@ -7,6 +7,7 @@ html(lang="en")
   body
     if id 
       p Welcome to #{name.charAt(0).toUpperCase() + name.slice(1)}'s Profile
+      a(href='/') Head Back Home!
     else
       a(href='/users/login') Login To See #{name.charAt(0).toUpperCase() + name.slice(1)}'s Profile
       p #{name.charAt(0).toUpperCase() + name.slice(1)}
