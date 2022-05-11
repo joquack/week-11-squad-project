@@ -10,7 +10,9 @@ html(lang="en")
 include utils.pug
 
 block content
-  +validationErrorSummary(errors)
-  p: a(href='/users/login' class = 'profile-not-found-login') Login
-  p: a(href='/users/signup') Don't have an account?
-  p: a(href='/') Go Back Home?
+  if user
+    p: a(href='/') Go Back Home?
+  else
+    p: a(href='/users/login' class = 'profile-not-found-login') Login
+    p: a(href='/users/signup') Don't have an account?
+    p: a(href='/') Go Back Home?

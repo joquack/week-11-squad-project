@@ -9,3 +9,4 @@ html
   form(action='/users/logout' method='post')
       button(type='submit') Logout
   a(href='/') Head Back Home!
+  a(href=`/users/edit/${user.id}/${user.firstName}`) Edit Profile !
