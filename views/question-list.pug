@@ -4,17 +4,37 @@ block content
   div
     a(href='/questions/create') Create Question
   if questions && questions.length > 0
-    table
-      thead
-        tr
-          th(scope='col') Title
-          th(scope='col') Content
-          th(scope='col') User
-      tbody
-        each question in questions
-          tr
-            td= question.title
-            td= question.content
-            td= question.userId
+    if locals.authenticated
+        table
+            thead
+                tr
+                    th(scope='col') Title
+                    th(scope='col') Content
+                    th(scope='col') User
+                    th(scope='col') Edit and Delete
+            tbody
+                each question in questions
+                    tr
+                        td= question.title
+                        td= question.content
+                        td= question.userId
+                        td
+                            a(href=`/questions/edit/${question.id}` role='button') Edit <br>
+                            a(href=`/questions/delete/${question.id}` role='button') Delete
+
+
+    if !locals.authenticated
+        table
+            thead
+                tr
+                    th(scope='col') Title
+                    th(scope='col') Content
+                    th(scope='col') User
+            tbody
+                each question in questions
+                    tr
+                        td= question.title
+                        td= question.content
+                        td= question.userId
   else
     p: em There are no questions here.
