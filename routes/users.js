@@ -14,7 +14,9 @@ const { check, validationResult } = require("express-validator");
 router.get("/", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
-  res.render("user-profile", { user });
+  const all = await db.User.findAll();
+  // res.render("user-profile", { name: user.firstName });
+  return res.render("all-people", { all, user });
 });
 
 router.get("/:id(\\d+)/:userName", async (req, res) => {
@@ -90,7 +92,7 @@ router.post(
 
         if (passwordMatch) {
           loginUser(req, res, user);
-          return res.redirect("/");
+          return res.render("user-profile", { user });
           // return res.render("user-profile", {
           //   title: `${
           //     user.username.charAt(0).toUpperCase() + user.username.slice(1)

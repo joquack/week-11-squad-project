@@ -14,8 +14,16 @@ html(lang="en")
     title Home | StackCode
   body 
 block content
-  p Welcome to your the default home page! Looks pretty bare doesn't it?
+  p This is where questions will live!
   if locals.authenticated
     span So what do you want to do, #{user.firstName.charAt(0).toUpperCase() + user.username.slice(1)}?
     div 
       a(href=`/users/${user.id}/${user.firstName}`) My Profile
+    div   
+      a(href=`/users`) All Users
+    form(action='/users/logout' method='post')
+      button(type='submit') Logout
+  else 
+    div(class='py-4')
+      a(href='/users/login') Login
+      a(href='/users/signup') Sign Up!
