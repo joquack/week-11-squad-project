@@ -1,7 +1,10 @@
 extends layout.pug
 
 block content
-  if questions && questions.length > 0
+    div(class=search-bar)
+        label(for="title") Search Questions
+        input(type='search' onkeydown='populate(this.value)' value='' class='search-bar' placeholder='Search')
+    if questions && questions.length > 0
     if locals.authenticated
         each question in questions
             div.question-list-card
@@ -30,5 +33,5 @@ block content
                         td= question.title
                         td= question.content
                         td= question.userId
-  else
+    else
     p: em There are no questions here.
