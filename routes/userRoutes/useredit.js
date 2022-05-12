@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db/models");
+const bcrypt = require("bcryptjs");
 const { csrfProtection, asyncHandler } = require("../utils");
 const { check, validationResult } = require("express-validator");
 const {
@@ -10,22 +11,41 @@ const {
   restoreUser,
 } = require("../../auth");
 
+const permission = async (req, res, next) => {
+  const numId = parseInt(req.params.id);
+  const name = req.params.userName;
+  let user = await db.User.findByPk(numId);
+  if (req.session.auth == null) {
+    return res.render("not-auth");
+  }
+  if (
+    req.session.auth.userId == req.params.id &&
+    req.params.userName == user.username
+  ) {
+    return next();
+  }
+  return res.render("not-auth", { auth: req.session.auth.userId });
+};
+
 router.get(
   "/users/edit/:id/:userName",
-  requireAuth,
-  restoreUser,
+  permission,
   csrfProtection,
   async (req, res) => {
     const id = req.session.auth.userId;
     const user = await db.User.findByPk(id);
     const changes = await db.User.build();
-    res.render("profile-edit", {title: "Edit Profile"});
+    res.render("profile-edit", {
+      id,
+      user,
+      _csrf: req.csrfToken(),
+    });
   }
 );
 
 const userValidators = [
   check("username")
-    .exists({ checkFalsy: false })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a value for username")
     .isLength({ max: 50 })
     .withMessage("Username must not be more than 50 characters long")
@@ -38,18 +58,8 @@ const userValidators = [
         }
       });
     }),
-  check("firstName")
-    .exists({ checkFalsy: false })
-    .withMessage("Please provide a value for first name")
-    .isLength({ max: 50 })
-    .withMessage("First name must not be more than 50 characters long"),
-  check("lastName")
-    .exists({ checkFalsy: false })
-    .withMessage("Please provide a value for last name")
-    .isLength({ max: 50 })
-    .withMessage("Last name must not be more than 50 characters long"),
   check("email")
-    .exists({ checkFalsy: false })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a value for Email Address")
     .isLength({ max: 255 })
     .withMessage("Email Address must not be more than 255 characters long")
@@ -66,39 +76,28 @@ const userValidators = [
     }),
 ];
 
-router.put(
-  "users/edit/:id/:userName",
-  csrfProtection,
+router.post(
+  "/users/edit/:id/:userName",
+  permission,
   userValidators,
-  asyncHandler(async (req, res) => {
-    console.log();
-    const { username, firstName, lastName, email, password } = req.body;
-    console.log(req.body, `HELLO`);
-    const user = await db.User.build({
-      username,
-      firstName,
-      lastName,
-      email,
-    });
-
+  async (req, res) => {
+    const id = req.session.auth.userId;
+    const userId = parseInt(req.params.id);
+    const user = await db.User.findByPk(userId);
+    const allowed = Object.keys(req.body);
     const validatorErrors = validationResult(req);
-
-    if (validatorErrors.isEmpty()) {
-      const hashPassword = await bcrypt.hash(password, 10);
-      user.hashPassword = hashPassword;
-      await user.save();
-      loginUser(req, res, user);
-      res.redirect("/users");
-    } else {
+    if (!validatorErrors.isEmpty()) {
       const errors = validatorErrors.array().map((error) => error.msg);
-      res.render("profile-edit", {
-        title: "Edit Profile",
-        user,
-        errors,
-        csrfToken: req.csrfToken(),
-      });
+      return res.render("profile-edit", { errors, id, user });
     }
-  })
+    for (let i of allowed) {
+      if (req.body[i].length > 0) {
+        user[i] = req.body[i].replace(/\s/g, "-");
+      }
+    }
+    await user.save();
+    res.redirect("/");
+  }
 );
 
 module.exports = router;
