@@ -5,14 +5,16 @@ block content
     if locals.authenticated
         div
             a(href='/answers/'+question.id+'/create') Submit New Answer
-    if answers && answers.length > 0
+    if votes
         h3 Answers
-        each answer in answers
-            div
-                div= answer.body
+        each answer in votes
+            if answer.dataValues.vote == true
+                p 1
+                div #{'answer.dataValues.votes'}
                 if locals.authenticated
                     div
-                        a(class='btn btn-primary' href=`/answers/edit/${answer.id}` role='button') Edit
-                        a(class='btn btn-danger ml-2' href=`/answers/delete/${answer.id}` role='button') Delete
+                        p answer.dataValues.votes
+                        a(class='btn btn-primary' href=`/answers/edit/${question.id}` role='button') Edit
+                        a(class='btn btn-danger ml-2' href=`/answers/delete/${question.id}` role='button') Delete
     else
         p: em There are no answers yet.
