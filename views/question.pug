@@ -68,14 +68,14 @@ html
                             td
                                 a(href=`/questions/edit/${question.id}` role='button') Edit
                                 a(href=`/questions/delete/${question.id}` role='button') Delete
-        if locals.user.id == question.userId
+        if locals.authenticated
             div
                 a(href='/answers/'+question.id+'/create') Submit New Answer
         if answers && answers.length > 0
             h3 Answers
             each answer in answers
                 div
-                    div(class='answer-body')= answer.body 
+                    div(class='answer-body')= answer.body
                     if locals.user.id == answer.userId
                         div
                             a(class='btn btn-primary' href=`/answers/edit/${answer.id}` role='button') Edit
