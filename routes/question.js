@@ -21,6 +21,26 @@ router.get("/", asyncHandler(async (req, res) => {
 })
 );
 
+router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
+  const questionId = parseInt(req.params.id, 10);
+  const question = await db.Question.findByPk(questionId, {include: User});
+
+  const answer = await db.Answer.build();
+  const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
+  const votes = answers[0].dataValues.AnswerVotes
+
+  console.log('*****************************************')
+  console.log(answers[1].dataValues.AnswerVotes)
+
+  let loggedInUser
+    if (req.session.auth) {
+        loggedInUser = req.session.auth.userId
+    }
+
+  res.render("question", { title: `${question.title}`, loggedInUser, question, questionId, answer, answers, votes, csrfToken: req.csrfToken()});
+})
+);
+
 
 router.get("/create", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
   const question = await db.Question.build();
@@ -122,14 +142,14 @@ router.post(
   })
 );
 
-router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
-  const questionId = parseInt(req.params.id, 10);
-  const question = await db.Question.findByPk(questionId);
-  const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
-  const votes = answers[0].dataValues.AnswerVotes
-  res.render("question", { title: `${question.title}`, question, votes});
-})
-);
+// router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+//   const questionId = parseInt(req.params.id, 10);
+//   const question = await db.Question.findByPk(questionId);
+//   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
+//   const votes = answers[0].dataValues.AnswerVotes
+//   res.render("question", { title: `${question.title}`, question, votes});
+// })
+// );
 
 
 module.exports = router;
