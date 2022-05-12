@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db/models");
+const bcrypt = require("bcryptjs");
 const { csrfProtection, asyncHandler } = require("../utils");
 const { check, validationResult } = require("express-validator");
 const {
@@ -10,8 +11,24 @@ const {
   restoreUser,
 } = require("../../auth");
 
+const permission = async (req, res, next) => {
+  const numId = parseInt(req.params.id);
+  const name = req.params.userName;
+  let user = await db.User.findByPk(numId);
+  if (
+    req.session.auth.userId == req.params.id &&
+    req.params.userName == user.firstName
+  ) {
+    return next();
+  }
+  console.log(req.session.auth.userId, `*****`, user.firstName);
+  return res.render("not-auth");
+  // next();
+};
+
 router.get(
   "/users/edit/:id/:userName",
+  permission,
   requireAuth,
   restoreUser,
   csrfProtection,
@@ -19,13 +36,13 @@ router.get(
     const id = req.session.auth.userId;
     const user = await db.User.findByPk(id);
     const changes = await db.User.build();
-    res.render("profile-edit");
+    res.render("profile-edit", { id, user, _csrf: req.csrfToken() });
   }
 );
 
 const userValidators = [
   check("username")
-    .exists({ checkFalsy: false })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a value for username")
     .isLength({ max: 50 })
     .withMessage("Username must not be more than 50 characters long")
@@ -39,17 +56,17 @@ const userValidators = [
       });
     }),
   check("firstName")
-    .exists({ checkFalsy: false })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a value for first name")
     .isLength({ max: 50 })
     .withMessage("First name must not be more than 50 characters long"),
   check("lastName")
-    .exists({ checkFalsy: false })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a value for last name")
     .isLength({ max: 50 })
     .withMessage("Last name must not be more than 50 characters long"),
   check("email")
-    .exists({ checkFalsy: false })
+    .exists({ checkFalsy: true })
     .withMessage("Please provide a value for Email Address")
     .isLength({ max: 255 })
     .withMessage("Email Address must not be more than 255 characters long")
@@ -66,14 +83,16 @@ const userValidators = [
     }),
 ];
 
-router.put(
-  "users/edit/:id/:userName",
+router.post(
+  "/users/edit/:id/:userName",
   csrfProtection,
   userValidators,
   asyncHandler(async (req, res) => {
-    console.log();
     const { username, firstName, lastName, email, password } = req.body;
-    console.log(req.body, `HELLO`);
+    console.log(req);
+    console.log(
+      ```````=================================================================```````
+    );
     const user = await db.User.build({
       username,
       firstName,

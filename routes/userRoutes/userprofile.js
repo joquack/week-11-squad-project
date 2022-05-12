@@ -7,20 +7,21 @@ router.get("/users/:id(\\d+)/:userName", async (req, res) => {
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
   try {
+    console.log(user.username == name, user.username, name);
     if (
-      user.firstName === name &&
+      user.username === name &&
       numId === user.id &&
       req.session.auth.userId === numId
     ) {
       return res.render("user-profile");
     }
-    if (user.firstName == name && req.session.auth.userId === numId) {
+    if (user.username == name && req.session.auth.userId === numId) {
       return res.render("profile-found-logged", { name });
     }
-    if (user.firstName != name) {
+    if (user.username != name) {
       return res.render("profile-not-found", { user: req.session.auth.userId });
     }
-    if (user.firstName == name && req.session.auth.userId != numId) {
+    if (user.username == name && req.session.auth.userId != numId) {
       return res.render("limited-view", {
         user,
         name,

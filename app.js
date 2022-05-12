@@ -52,7 +52,7 @@ app.use(userLogin);
 app.use(signupRouter);
 app.use(userProfile);
 app.use(userLogout);
-app.use(userEdit);
+// app.use(userEdit);
 app.use("/answers", answerRouter);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);
@@ -70,7 +70,6 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  console.log();
   if (req.session.auth) {
     return res.render("page-not-found-logged");
   }
