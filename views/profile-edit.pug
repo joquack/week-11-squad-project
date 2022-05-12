@@ -1,17 +1,15 @@
-extends layout.pug
-
 include utils.pug
 
 block content
   +validationErrorSummary(errors)
-  form(action=`/users/edit/${id}/${firstName}` method='put')
+  form(action=`/users/edit/${id}/${user.username}` method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
-    +field('Username', 'username', user.username)
-    +field('First Name', 'firstName', user.firstName)
-    +field('Last Name', 'lastName', user.lastName)
-    +field('Email Address', 'email', user.email)
-    +field('Password', 'password', user.password, 'password')
-    +field('Confirm Password', 'confirmPassword', '', 'password')
-    div(class='submit-cancel-btns')
-      button(type='submit' class='btn confirm-changes-btn') Confirm Changes
-      a(href='/' class='btn cancel-btn') Cancel
+    label(for= 'username' id=`username-label`) Username
+    input(type='text' id='username' name='username' value=user.username)
+    label(for= 'firstName' id=`firstName-label`) First Name
+    input(type='text' id='firstName' name='firstName' value=user.firstName)
+    label(for= 'lastName' id=`lastName-label`) Last Name
+    input(type='text' id='username' name='lastName' value=user.lastName)
+    label(for= 'email' id=`email-label`) Email
+    input(type='text' id='email' name='email' value=user.email)
+    button(type='submit') Confirm Changes

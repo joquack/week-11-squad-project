@@ -71,7 +71,6 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  console.log();
   if (req.session.auth) {
     return res.render("page-not-found-logged", {title:'Not Found'});
   }
