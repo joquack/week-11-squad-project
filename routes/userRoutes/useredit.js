@@ -94,9 +94,26 @@ router.post("/users/edit/:id/:userName", permission, async (req, res) => {
   const allowed = Object.keys(req.body);
   const validatorErrors = validationResult(req);
 
+<<<<<<< HEAD
   for (let i of allowed) {
     if (req.body[i].length > 0) {
       user[i] = req.body[i].replace(/\s/g, "-");
+=======
+    if (validatorErrors.isEmpty()) {
+      const hashPassword = await bcrypt.hash(password, 10);
+      user.hashPassword = hashPassword;
+      await user.save();
+      loginUser(req, res, user);
+      res.redirect("/users");
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render("profile-edit", {
+        title: "Edit Profile",
+        user,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
+>>>>>>> 29bb8ec95c27af842ff2421354026863da283639
     }
   }
   await user.save();
