@@ -26,6 +26,7 @@ router.get("/:questionId(\\d+)/create", csrfProtection, requireAuth, asyncHandle
     });
 })
 );
+
 const answerValidators = [
     check("body")
         .exists({ checkFalsy: true })
@@ -44,7 +45,7 @@ router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerVali
 
     if (validatorErrors.isEmpty()) {
         await answer.save();
-        res.redirect('../../questions/' + questionId);
+        res.redirect('/questions/' + questionId);
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('answer-create', {
@@ -56,13 +57,7 @@ router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerVali
         });
     }
 }));
-router.get("/:questionId(\\d+)", asyncHandler(async (req, res) => {
-    const questionId = parseInt(req.params.questionId, 10);
-    const answers = await db.Answer.findAll({ where: { questionId: questionId } });
-    res.render("answer-list", { title: "Answers", answers });
-})
-);
-/*********************************************************/
+
 router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
     asyncHandler(async (req, res) => {
         const answerId = parseInt(req.params.id, 10);
@@ -79,65 +74,55 @@ router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
         });
     }));
 
-router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators,
-    asyncHandler(async (req, res) => {
-        const answerId = parseInt(req.params.id, 10);
-        const answerToUpdate = await db.Answer.findByPk(answerId);
+router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
+    const answer = await db.Answer.findByPk(req.params.id)
 
-        checkPermissions(answerToUpdate, res.locals.user);
+    answer.body = req.body.body
+    await answer.save()
 
-        const {body, questionId} = req.body;
+    res.json({
+        message: 'Success',
+        answer
+    })
+}))
 
-        const answer = {body, questionId, id:answerId};
+// router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators,
+//     asyncHandler(async (req, res) => {
+//         const answerId = parseInt(req.params.id, 10);
+//         const answerToUpdate = await db.Answer.findByPk(answerId);
 
-        const validatorErrors = validationResult(req);
+//         checkPermissions(answerToUpdate, res.locals.user);
 
-        if (validatorErrors.isEmpty()) {
-            await answerToUpdate.update(answer);
-            res.redirect('../../questions/' + questionId);
+//         const {body, questionId} = req.body;
+
+//         const answer = {body, questionId, id:answerId};
+
+//         const validatorErrors = validationResult(req);
+
+//         if (validatorErrors.isEmpty()) {
+//             await answerToUpdate.update(answer);
+//             res.redirect('../../questions/' + questionId);
+//         } else {
+//             const errors = validatorErrors.array().map((error) => error.msg);
+//             console.log(answer)
+//             res.render('answer-edit', {
+//                 title: 'Edit answer',
+//                 answer,
+//                 questionId,
+//                 errors,
+//                 csrfToken: req.csrfToken(),
+//             });
+//         }
+//     }));
+
+
+    router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
+        const answer = await db.Answer.findByPk(req.params.id)
+        if (answer) {
+            await answer.destroy()
+            res.json({message: 'Success'})
         } else {
-            const errors = validatorErrors.array().map((error) => error.msg);
-            console.log(answer)
-            res.render('answer-edit', {
-                title: 'Edit answer',
-                answer,
-                questionId,
-                errors,
-                csrfToken: req.csrfToken(),
-            });
+            res.json({message: 'Fail'})
         }
-    }));
-//     const validatorErrors = validationResult(req);
-    //     if (validatorErrors.isEmpty()) {
-    //         await answerToUpdate.update(answer);
-    //         res.redirect('../../questions/' + questionId);
-    //     } else {
-    //         const errors = validatorErrors.array().map((error) => error.msg);
-    //         res.redirect('/answers/edit/'+answerId)
-    //     }
-    // }));
-/*********************************************************/
-router.get('/delete/:id(\\d+)', requireAuth, csrfProtection,
-    asyncHandler(async (req, res) => {
-        const answerId = parseInt(req.params.id, 10);
-        const answer = await db.Answer.findByPk(answerId);
-        checkPermissions(answer, res.locals.user);
-
-        res.render('answer-delete', {
-            title: 'Delete Answer',
-            answer,
-            csrfToken: req.csrfToken(),
-        });
-    }));
-
-router.post('/delete/:id(\\d+)', requireAuth, csrfProtection,
-    asyncHandler(async (req, res) => {
-        const answerId = parseInt(req.params.id, 10);
-        const answer = await db.Answer.findByPk(answerId);
-        const questionId = answer.questionId
-        checkPermissions(answer, res.locals.user);
-
-        await answer.destroy();
-        res.redirect('../../questions/' + questionId);
     }));
 module.exports = router;

@@ -7,9 +7,8 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Welcome to StackCode" });
 });
 
-router.get('/about', function(req, res, next) {
-  res.render('about', { title: 'About' });
-
+router.get("/about", function (req, res, next) {
+  res.render("about", { title: "About" });
 });
 
 module.exports = router;

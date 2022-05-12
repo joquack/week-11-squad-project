@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("../../db/models");
 const router = new express.Router();
+const bcrypt = require("bcryptjs");
 const { csrfProtection, asyncHandler } = require("../utils");
 const { check, validationResult } = require("express-validator");
 const {
@@ -83,7 +84,7 @@ const userValidators = [
 ];
 
 router.post(
-  "users/signup",
+  "/users/signup",
   csrfProtection,
   userValidators,
   asyncHandler(async (req, res) => {
@@ -101,10 +102,10 @@ router.post(
     if (validatorErrors.isEmpty()) {
       const hashPassword = await bcrypt.hash(password, 10);
       user.hashPassword = hashPassword;
+      console.log(`WEFGAWHGBWRG ARE WER HERE`);
       await user.save();
       loginUser(req, res, user);
-      console.log(`WEFGAWHGBWRG ARE WER HERE`);
-      res.redirect("/users");
+      res.redirect("/");
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("user-signup", {

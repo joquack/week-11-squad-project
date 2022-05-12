@@ -4,8 +4,8 @@ include utils.pug
 
 block content
   +validationErrorSummary(errors)
-  form(action='/newquestion' method='post')
+  form(action='/newquestion' method='post' class='new-que-form')
     input(type='hidden' name='_csrf' value=csrfToken)
-    input#title.form-control(type='text', fieldName="title", placeholder='Topic')
+    input(type='text', fieldName="title", placeholder='Topic')
     input#message.form-control(type='message', fieldName="content", placeholder='What do you want to ask?')
-    button(type='submit' class = 'question-submit-buttom') Add Question 
+    button(type='submit' class = 'question-submit-buttom') Add Question

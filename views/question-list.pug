@@ -1,40 +1,39 @@
 extends layout.pug
 
 block content
-  div
-    a(href='/questions/create') Create Question
-  if questions && questions.length > 0
-    if locals.authenticated
-        table
-            thead
-                tr
-                    th(scope='col') Title
-                    th(scope='col') Content
-                    th(scope='col') User
-                    th(scope='col') Edit and Delete
-            tbody
-                each question in questions
+    script(src="/javascripts/questions-list.js" type="module")
+    div(class=search-bar)
+        label(for="title") Search Questions
+        input(type='search' onkeydown='' value='' class='search-bar' placeholder='Search')
+        //- button(type='submit' class='btn search-btn') Search
+    if questions && questions.length > 0
+        if locals.authenticated
+            each question in questions
+                div.question-list-card
+                    div.question-card-heading
+                        p=question.createdAt
+                        p=question.updatedAt
+                        p Answers
+                    div.question-card-title
+                        a.question-title(href=`/questions/${question.id}`)=question.title
+                    div.question-card-tag-and-user
+                        div.question-card-tag
+                        div.question-card-user
+                            span.material-symbols-outlined='person'
+                                a(href='/' class='home-btn nav-btn btn')=question.User.username
+            div(class='no-questions-found hidden') No questions found.
+        if !locals.authenticated
+            table
+                thead
                     tr
-                        td= question.title
-                        td= question.content
-                        td= question.userId
-                        td
-                            a(href=`/questions/edit/${question.id}` role='button') Edit <br>
-                            a(href=`/questions/delete/${question.id}` role='button') Delete
-
-
-    if !locals.authenticated
-        table
-            thead
-                tr
-                    th(scope='col') Title
-                    th(scope='col') Content
-                    th(scope='col') User
-            tbody
-                each question in questions
-                    tr
-                        td= question.title
-                        td= question.content
-                        td= question.userId
-  else
-    p: em There are no questions here.
+                        th(scope='col') Title
+                        th(scope='col') Content
+                        th(scope='col') User
+                tbody
+                    each question in questions
+                        tr
+                            td= question.title
+                            td= question.content
+                            td= question.userId
+    else
+        p: em There are no questions here.

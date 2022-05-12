@@ -5,8 +5,8 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
     title #{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}'s Profile | StackCode
   body
-      span Welcome #{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}!
+      span(id='profile-title') Welcome #{user.username.charAt(0).toUpperCase() + user.username.slice(1)}!
   form(action='/users/logout' method='post')
       button(type='submit') Logout
   a(href='/') Head Back Home!
-  a(href=`/users/edit/${user.id}/${user.firstName}`) Edit Profile !
+  a(href=`/users/edit/${user.id}/${user.username}`) Edit Profile !

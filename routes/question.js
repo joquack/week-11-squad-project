@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const db = require("../db/models");
+const {User, Question, Answer, AnswerVote} = require("../db/models");
 const { csrfProtection, asyncHandler } = require("./utils.js");
 const { check, validationResult } = require("express-validator");
 const { requireAuth } = require("../auth");
@@ -15,18 +16,23 @@ const checkPermissions = (question, currentUser) => {
 
 
 router.get("/", asyncHandler(async (req, res) => {
-  const questions = await db.Question.findAll();
+  const questions = await db.Question.findAll({include: User});
   res.render("question-list", { title: "Questions", questions });
 })
 );
 
-router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
   const questionId = parseInt(req.params.id, 10);
-  const question = await db.Question.findByPk(questionId);
-  const answers = await db.Answer.findAll({ where: { questionId: questionId } });
-  res.render("question", { title: `${question.title}`, question, answers});
+  const question = await db.Question.findByPk(questionId, {include: User});
+
+  const answer = await db.Answer.build();
+  const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
+  const votes = answers[0].dataValues.AnswerVotes
+
+  res.render("question", { title: `${question.title}`, question, votes, questionId, answer, answers, csrfToken: req.csrfToken()});
 })
 );
+
 
 router.get("/create", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
   const question = await db.Question.build();
@@ -74,6 +80,7 @@ router.post("/create", csrfProtection, requireAuth, questionValidators, asyncHan
   }
 })
 );
+
 
 router.get(
   "/edit/:id(\\d+)",
