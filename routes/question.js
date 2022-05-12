@@ -16,21 +16,21 @@ const checkPermissions = (question, currentUser) => {
 
 
 router.get("/", asyncHandler(async (req, res) => {
-  const questions = await db.Question.findAll();
+  const questions = await db.Question.findAll({include: User});
   res.render("question-list", { title: "Questions", questions });
 })
 );
 
 router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
   const questionId = parseInt(req.params.id, 10);
-  const question = await db.Question.findByPk(questionId);
+  const question = await db.Question.findByPk(questionId, {include: User});
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
   let x = Object.keys(answers[0].dataValues)
   console.log(Object.keys(answers[0]))
   console.log('**********************************************************************')
   console.log(answers[0].dataValues)
   answers[0].dataValues
-  res.render("question", { title: `${question.title}`, question, x});
+  res.render("question", { title: `${question.title}`, question, answers});
 })
 );
 
