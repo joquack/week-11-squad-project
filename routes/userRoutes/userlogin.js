@@ -15,7 +15,7 @@ router.get("/users", requireAuth, restoreUser, async (req, res) => {
   const userId = await req.session.auth.userId;
   const user = await db.User.findByPk(userId);
   const all = await db.User.findAll();
-  return res.render("all-people", { all, user });
+  return res.render("all-people", { all, user, title: "All Users" });
 });
 
 router.get("/users/login", csrfProtection, (req, res) => {

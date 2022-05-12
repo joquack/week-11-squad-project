@@ -1,23 +1,15 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title User Databse | StackCode
-  body
+extends layout.pug
+
+block content
     table
       thead
         tr
-          th(scope='col') First Name
-          th(scope='col') Last Name
-          th(scope='col') UserName
+          th(scope='col' class='user-table-headers') First Name
+          th(scope='col' class='user-table-headers') Last Name
+          th(scope='col' class='user-table-headers') UserName
       tbody
         each question in all
             tr
-                td= question.firstName
-                td= question.lastName
-                td= question.username
-  a(href='/') Go Back Home 
-  a(href=`/users/${user.id}/${user.firstName}`) Go To Profile
-
+                td(class='user-info')= question.firstName
+                td(class='user-info')= question.lastName
+                td(class='user-info')= question.username

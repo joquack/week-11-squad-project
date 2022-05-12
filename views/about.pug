@@ -1,44 +1,48 @@
 extends layout
 
 block content
-  p Welcome to our About page! It looks pretty bare doesn't it?
+    p(id='about-header-text') Welcome to our About page! It looks pretty bare doesn't it?
 
-  h2 Concept
-  div
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit, ut labore et dolore magna aliqua. Ut enim ad minim veniam, sed do eiusmod tempor incididunt quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    div(id='about-concept')
+        h2(class='about-h2') Concept
+        div(id='about-concept-text')
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit, ut labore et dolore magna aliqua. Ut enim ad minim veniam, sed do eiusmod tempor incididunt quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    div(id='about-acknowledgements')
+        h2(class='about-h2') Acknowledgements
+        ul(id='acknowledgements-list')
+            li(class='acknowledgements-bullets')
+                a(href='https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-100-LeetCode-Questions-to-Save-Your-Time-OaM1orEU' class='acknowledgements-links') Leetcode Blind 75
+            li(class='acknowledgements-bullets')
+                a(href='https://www.educative.io/courses/grokking-the-coding-interview' class='acknowledgements-links') Educative - Grokking the Interview - 14 Patterns
+            li(class='acknowledgements-bullets')
+                a(href='https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed' class='acknowledgements-links') HackerNoon - 14 Patterns to Ace Any Coding Interivew
+    div(id='about-contributors')
+        h2(class='about-h2') Contributors
 
-  h2 Acknowledgements
-  div
-    ul
-        li
-            a(href='https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-100-LeetCode-Questions-to-Save-Your-Time-OaM1orEU') Leetcode Blind 75
-        li
-            a(href='https://www.educative.io/courses/grokking-the-coding-interview') Educative - Grokking the Interview - 14 Patterns
-        li
-            a(href='https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed') HackerNoon - 14 Patterns to Ace Any Coding Interivew
+        div(class='single-contributor')
+            h3(class='about-names') Jesse Njoroge
+            ul(class='contributors-list')
+                li(class='contributors-bullets')
+                    a(href='https://github.com/jnjoroge13' class='contributors-links') Jesse Njoroge's Github
+                li(class='contributors-bullets')
+                    a(href='https://www.linkedin.com/in/jesse-njoroge-3a5711148/' class='contributors-links') Jesse Njoroge's LinkedIn
 
-  h2 Contributors
-  div
-    h3 Jesse Njoroge
-    ul
-        li
-            a(href='https://github.com/jnjoroge13') Jesse Njoroge's Github
-        li
-            a(href='https://www.linkedin.com/in/jesse-njoroge-3a5711148/') Jesse Njoroge's LinkedIn
+        div(class='single-contributor')
+            h3(class='about-names') Joel Cruz
+            ul(class='contributors-list')
+                li(class='contributors-bullets')
+                    a(href='https://github.com/joquack' class='contributors-links') Joel Cruz's Github
 
-    h3 Joel Cruz
-    ul
-        li
-            a(href='https://github.com/joquack') Joel Cruz's Github
+        div(class='single-contributor')
+            h3(class='about-names') Jorge Yang
+            ul(class='contributors-list')
+                li(class='contributors-bullets')
+                    a(href='https://github.com/IamxiaoSheep' class='contributors-links') Jorge Yang's Github
 
-    h3 Jorge Yang
-    ul
-        li
-            a(href='https://github.com/IamxiaoSheep') Jorge Yang's Github
-
-    h3 Chase Riddick
-    ul
-        li
-             a(href='https://github.com/Chase-Riddick') Chase Riddick's Github
-        li
-             a(href='https://www.linkedin.com/in/chase-riddick-a14596237/') Chase Riddick's LinkedIn
+        div(class='single-contributor')
+            h3(class='about-names') Chase Riddick
+            ul(class='contributors-list')
+                li(class='contributors-bullets')
+                        a(href='https://github.com/Chase-Riddick' class='contributors-links') Chase Riddick's Github
+                li(class='contributors-bullets')
+                        a(href='https://www.linkedin.com/in/chase-riddick-a14596237/' class='contributors-links') Chase Riddick's LinkedIn
