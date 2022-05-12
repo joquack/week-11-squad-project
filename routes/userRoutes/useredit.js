@@ -35,7 +35,6 @@ router.get(
     const id = req.session.auth.userId;
     const user = await db.User.findByPk(id);
     const changes = await db.User.build();
-    console.log(`BRO WTF>`);
     res.render("profile-edit", {
       id,
       user,
@@ -59,16 +58,6 @@ const userValidators = [
         }
       });
     }),
-  check("firstName")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a value for first name")
-    .isLength({ max: 50 })
-    .withMessage("First name must not be more than 50 characters long"),
-  check("lastName")
-    .exists({ checkFalsy: true })
-    .withMessage("Please provide a value for last name")
-    .isLength({ max: 50 })
-    .withMessage("Last name must not be more than 50 characters long"),
   check("email")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a value for Email Address")
@@ -87,55 +76,28 @@ const userValidators = [
     }),
 ];
 
-router.post("/users/edit/:id/:userName", permission, async (req, res) => {
-  console.log(`DOES THIS DOGSHIT GO HERE>`);
-  const userId = parseInt(req.params.id);
-  const user = await db.User.findByPk(userId);
-  const allowed = Object.keys(req.body);
-  const validatorErrors = validationResult(req);
-
-  for (let i of allowed) {
-    if (req.body[i].length > 0) {
-      user[i] = req.body[i].replace(/\s/g, "-");
+router.post(
+  "/users/edit/:id/:userName",
+  permission,
+  userValidators,
+  async (req, res) => {
+    const id = req.session.auth.userId;
+    const userId = parseInt(req.params.id);
+    const user = await db.User.findByPk(userId);
+    const allowed = Object.keys(req.body);
+    const validatorErrors = validationResult(req);
+    if (!validatorErrors.isEmpty()) {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      return res.render("profile-edit", { errors, id, user });
     }
+    for (let i of allowed) {
+      if (req.body[i].length > 0) {
+        user[i] = req.body[i].replace(/\s/g, "-");
+      }
+    }
+    await user.save();
+    res.redirect("/");
   }
-  await user.save();
-  res.send("Gucci");
-});
-
-// router.put("/users/edit/:id/:userName", csrfProtection, async (req, res) => {
-//   console.log(`!@#$%!@#$%!@#$%`);
-//   const { username, firstName, lastName, email, password } = req.body;
-//   const user = await db.User.build({
-//     username,
-//     firstName,
-//     lastName,
-//     email,
-//   });
-
-//   const validatorErrors = validationResult(req);
-
-//   if (validatorErrors.isEmpty()) {
-//     const hashPassword = await bcrypt.hash(password, 10);
-//     user.hashPassword = hashPassword;
-//     await user.save();
-//     loginUser(req, res, user);
-//     res.redirect("/users");
-//   } else {
-//     const errors = validatorErrors.array().map((error) => error.msg);
-//     console.log(`**************HERE***********`);
-
-//     console.log(req);
-//     console.log(
-//       ```````=================================================================```````
-//     );
-//     res.render("profile-edit", {
-//       title: "Sign Up",
-//       user,
-//       errors,
-//       csrfToken: req.csrfToken(),
-//     });
-//   }
-// });
+);
 
 module.exports = router;
