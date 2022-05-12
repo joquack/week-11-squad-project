@@ -17,10 +17,11 @@ for (let i = 0; i < answerEditBtns.length; i++) {
         const answerId = e.target.id.split('-')[2]
         const form = document.getElementById(`edit-form-${answerId}`)
         const bodyEle = document.getElementById(`${answerId}-body`)
+        const cancelBtn = document.getElementById(`edit-btn-${answerId}`)
         const submitBtn = document.getElementById(`edit-submit-${answerId}`)
         const editInputBody = document.getElementById(`${answerId }-edit-body`)
         // const oldBodyValue = document.getElementById(`${answerId }-edit-body`).innerText
-
+        cancelBtn.innerHTML = 'Cancel'
 
         if (form.classList.contains('hidden')) {
             form.classList.remove('hidden')
@@ -34,11 +35,13 @@ for (let i = 0; i < answerEditBtns.length; i++) {
         }
 
         editInputBody.value = bodyEle.innerText;
-
+        cancelBtn.addEventListener('click', (e) => {
+            cancelBtn.innerHTML= 'Edit'
+        })
         submitBtn.addEventListener('click', async (submitEvent) => {
             submitEvent.preventDefault()
             const body = document.getElementById(`${answerId }-edit-body`).value
-
+            cancelBtn.innerHTML = 'Edit'
 
 
             const res = await fetch(`/answers/${answerId }`, {
