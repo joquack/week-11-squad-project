@@ -136,7 +136,9 @@ a {
     grid-area: 2 / 2 / 5 / 5;
 }
 
-
+.hidden {
+    display: none;
+}
 
 
 /*
