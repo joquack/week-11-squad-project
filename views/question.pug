@@ -3,7 +3,6 @@ extends layout.pug
 include utils.pug
 
 block content
-    script(src="/javascripts/question.js" type="module")
     div.question-page-card
         div= question.content
         div(class="question-page-card-bottom-details card-bottom-row")
@@ -21,7 +20,7 @@ block content
         div(class="answers-container")
             each answer in answers
                 div(class="answer-card" id=`answer-card-${answer.id}`)
-                    div(class='answer-body' id=`${answer.id}-body`)=answer.body
+                    div(id=`${answer.id}-body`)=answer.body
                     div(id=`edit-form-div-${answer.id}`)
                         form(class='hidden' id=`edit-form-${answer.id}`)
                                     textarea(type="textarea" cols="70" rows="10" name="body" value=answer.body id=`${answer.id}-edit-body`)
@@ -34,7 +33,6 @@ block content
                                 button(class='btn card-btn answer-delete-btn' id=`delete-answer-${answer.id}`) Delete
                                 button(class="btn card-btn answer-edit-btn" id=`edit-btn-${answer.id}`) Edit
                                 button(class="btn card-btn edit-submit hidden" id=`edit-submit-${answer.id}`) Submit Edit
-            div(class='no-answers-found hidden') No answers found.
 
     else
         p: em There are no answers yet.
