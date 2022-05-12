@@ -7,6 +7,6 @@ mixin validationErrorSummary(errors)
           li(class='error-bullet')= error
 
 mixin field(labelText, fieldName, fieldValue, fieldType = 'text')
-  div(id=`new-que-${fieldName}-div`)
-    label(for=fieldName id=`new-que-${fieldName}-label`)= labelText
-    input(type=fieldType id=`new-que-${fieldName}` name=fieldName value=fieldValue)
+  div(id=`${fieldName}-div`)
+    label(for=fieldName id=`${fieldName}-label`)= labelText
+    input(type=fieldType id=`${fieldName}` name=fieldName value=fieldValue)

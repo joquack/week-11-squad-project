@@ -4,10 +4,10 @@ include utils.pug
 
 block content
   +validationErrorSummary(errors)
-  form(action= '/answers/'+questionId+'/create' method='post')
+  form(action= '/answers/'+questionId+'/create' method='post' class="new-answer-div")
     input(type='hidden' name='_csrf' value=csrfToken)
     input(type='hidden' name='questionId' value=questionId)
     +field('Answer', 'body', answer.body)
-    div(class='py-4')
-      button(type='submit' class='btn btn-primary') Submit Answer
-      a(href='/questions' class='btn btn-warning ml-2') Cancel
+    div(class='create-cancel-btns')
+      button(type='submit' class='btn create-btn') Submit Answer
+      a(href='/questions/' class='btn cancel-btn') Cancel
