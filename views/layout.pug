@@ -6,21 +6,24 @@ html
 
     title J3C Group - #{title}
     link(rel='stylesheet' href='../stylesheets/styles.css')
+    script(src="../public/javascripts/answer-answervotes.js" type="module")
+
 
   body
-    if locals.authenticated
-      span Welcome #{user.firstName}!
-      form(action='/users/logout' method='post')
-        button(type='submit') Logout
-    else
+    div.nav-bar
+      if locals.authenticated
+        div#welcome-message Welcome #{user.firstName}!
+        form(action='/users/logout' method='post')
+          button(class='logout-btn' type='submit') Logout
+      else
+        div(class='routes-')
+        div(class='login-header')
+          span
+            a.btn(href='/users/login') Login
+            a.btn(href='/users/Signup') Signup
 
-      div(class='login-header')
-        span
-          a.btn(href='/users/login') Login
-          a.btn(href='/users/Signup') Signup
 
-
-    .container
-      h2 #{title}
+    .main-content
+      h2#layout-header #{title}
       block content
         link(rel='stylesheet' href='/stylesheets/reset.css')
