@@ -35,9 +35,11 @@ for (let i = 0; i < answerEditBtns.length; i++) {
         }
 
         editInputBody.value = bodyEle.innerText;
+
         cancelBtn.addEventListener('click', (e) => {
             cancelBtn.innerHTML= 'Edit'
         })
+        
         submitBtn.addEventListener('click', async (submitEvent) => {
             submitEvent.preventDefault()
             const body = document.getElementById(`${answerId }-edit-body`).value
