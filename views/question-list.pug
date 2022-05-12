@@ -5,7 +5,7 @@ block content
     div(class=search-bar)
         label(for="title") Search Questions
         input(type='search' onkeydown='' value='' class='search-bar' placeholder='Search')
-        button(type='submit' class='btn search-btn') Search
+        //- button(type='submit' class='btn search-btn') Search
     if questions && questions.length > 0
         if locals.authenticated
             each question in questions
@@ -21,6 +21,7 @@ block content
                         div.question-card-user
                             span.material-symbols-outlined='person'
                                 a(href='/' class='home-btn nav-btn btn')=question.User.username
+            div(class='no-questions-found hidden') No questions found.
 
         if !locals.authenticated
             table
