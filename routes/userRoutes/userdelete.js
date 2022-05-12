@@ -22,7 +22,7 @@ const permission = async (req, res, next) => {
   if (req.session.auth.userId == req.params.id) {
     return next();
   }
-  return res.render("not-auth", { auth: req.session.auth.userId });
+  return res.render("page-not-found", { auth: req.session.auth.userId });
 };
 
 router.post("/users/delete/:id", permission, async (req, res) => {
