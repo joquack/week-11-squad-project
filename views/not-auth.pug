@@ -7,11 +7,13 @@ html(lang="en")
     title Unauthorized | StackCode 
   body
     div
-      p You are must login~
+      p You Are Not Authorized To Access This Page
 include utils.pug
 
 block content
-  +validationErrorSummary(errors)
-  p: a(href='/users/login') Login
-  p: a(href='/users/signup') Don't have an account?
-  p: a(href='/') Go Back Home?
+    if auth
+      a(href='/') Head Back Home!
+    else
+      p: a(href='/users/login') Login
+      p: a(href='/users/signup') Don't have an account?
+      p: a(href='/') Go Back Home?

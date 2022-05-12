@@ -15,28 +15,32 @@ const permission = async (req, res, next) => {
   const numId = parseInt(req.params.id);
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
+  if (req.session.auth == null) {
+    return res.render("not-auth");
+  }
   if (
     req.session.auth.userId == req.params.id &&
-    req.params.userName == user.firstName
+    req.params.userName == user.username
   ) {
     return next();
   }
-  console.log(req.session.auth.userId, `*****`, user.firstName);
-  return res.render("not-auth");
-  // next();
+  return res.render("not-auth", { auth: req.session.auth.userId });
 };
 
 router.get(
   "/users/edit/:id/:userName",
   permission,
-  requireAuth,
-  restoreUser,
   csrfProtection,
   async (req, res) => {
     const id = req.session.auth.userId;
     const user = await db.User.findByPk(id);
     const changes = await db.User.build();
-    res.render("profile-edit", { id, user, _csrf: req.csrfToken() });
+    console.log(`BRO WTF>`);
+    res.render("profile-edit", {
+      id,
+      user,
+      _csrf: req.csrfToken(),
+    });
   }
 );
 
@@ -83,41 +87,55 @@ const userValidators = [
     }),
 ];
 
-router.post(
-  "/users/edit/:id/:userName",
-  csrfProtection,
-  userValidators,
-  asyncHandler(async (req, res) => {
-    const { username, firstName, lastName, email, password } = req.body;
-    console.log(req);
-    console.log(
-      ```````=================================================================```````
-    );
-    const user = await db.User.build({
-      username,
-      firstName,
-      lastName,
-      email,
-    });
+router.post("/users/edit/:id/:userName", permission, async (req, res) => {
+  console.log(`DOES THIS DOGSHIT GO HERE>`);
+  const userId = parseInt(req.params.id);
+  const user = await db.User.findByPk(userId);
+  const allowed = Object.keys(req.body);
+  const validatorErrors = validationResult(req);
 
-    const validatorErrors = validationResult(req);
-
-    if (validatorErrors.isEmpty()) {
-      const hashPassword = await bcrypt.hash(password, 10);
-      user.hashPassword = hashPassword;
-      await user.save();
-      loginUser(req, res, user);
-      res.redirect("/users");
-    } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
-      res.render("profile-edit", {
-        title: "Sign Up",
-        user,
-        errors,
-        csrfToken: req.csrfToken(),
-      });
+  for (let i of allowed) {
+    if (req.body[i].length > 0) {
+      user[i] = req.body[i].replace(/\s/g, "-");
     }
-  })
-);
+  }
+  await user.save();
+  res.send("Gucci");
+});
+
+// router.put("/users/edit/:id/:userName", csrfProtection, async (req, res) => {
+//   console.log(`!@#$%!@#$%!@#$%`);
+//   const { username, firstName, lastName, email, password } = req.body;
+//   const user = await db.User.build({
+//     username,
+//     firstName,
+//     lastName,
+//     email,
+//   });
+
+//   const validatorErrors = validationResult(req);
+
+//   if (validatorErrors.isEmpty()) {
+//     const hashPassword = await bcrypt.hash(password, 10);
+//     user.hashPassword = hashPassword;
+//     await user.save();
+//     loginUser(req, res, user);
+//     res.redirect("/users");
+//   } else {
+//     const errors = validatorErrors.array().map((error) => error.msg);
+//     console.log(`**************HERE***********`);
+
+//     console.log(req);
+//     console.log(
+//       ```````=================================================================```````
+//     );
+//     res.render("profile-edit", {
+//       title: "Sign Up",
+//       user,
+//       errors,
+//       csrfToken: req.csrfToken(),
+//     });
+//   }
+// });
 
 module.exports = router;

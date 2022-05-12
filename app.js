@@ -52,7 +52,7 @@ app.use(userLogin);
 app.use(signupRouter);
 app.use(userProfile);
 app.use(userLogout);
-// app.use(userEdit);
+app.use(userEdit);
 app.use("/answers", answerRouter);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);
