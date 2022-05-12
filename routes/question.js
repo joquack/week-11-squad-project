@@ -27,13 +27,9 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
 
   const answer = await db.Answer.build();
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
+  const votes = answers[0].dataValues.AnswerVotes
 
-  let loggedInUser
-    if (req.session.auth) {
-        loggedInUser = req.session.auth.userId
-    }
-
-  res.render("question", { title: `${question.title}`, loggedInUser, question, questionId, answer, answers, csrfToken: req.csrfToken()});
+  res.render("question", { title: `${question.title}`, question, votes, questionId, answer, answers, csrfToken: req.csrfToken()});
 })
 );
 

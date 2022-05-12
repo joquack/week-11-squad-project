@@ -161,7 +161,37 @@ a.question-title {
 }
 
 
+/* */
+
+.submit-cancel-btns {
+    display: flex;
+    justify-content: end;
+}
+
+.answer-submit {
+    /* padding: 5px 10px;
+    border-radius: 8px;
+    margin: 2px;
+    font-size: 12px; */
+    display: flex;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #018dc4;
+    border-radius: 40px;
+    color: rgba(255, 255, 255, 0.9);
+    text-overflow: clip;
+    background: #F77A61;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
+    margin: 5px;
+
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 /* LAYOUT */
+
+
 
 .login-header {
     display: grid;
