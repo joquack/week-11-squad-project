@@ -21,7 +21,7 @@ router.get("/users/:id(\\d+)/:userName", async (req, res) => {
       return res.render("profile-found-logged", { name });
     }
     if (user.username != name) {
-      console.log(`@@@@@@@HERE@@@@@@@@@@ first`);
+      // console.log(`@@@@@@@HERE@@@@@@@@@@ first`);
       // res.send("wtf are you doingß");
       // return res.render(`not-logged`, {
       //   name,
