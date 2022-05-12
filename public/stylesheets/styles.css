@@ -217,7 +217,9 @@ a.question-title {
     grid-area: 2 / 2 / 5 / 5;
 }
 
-
+.hidden {
+    display: none;
+}
 
 /* ************** TEST FEATURES ************** */
 
