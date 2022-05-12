@@ -13,6 +13,6 @@ block content
     label(for= 'email' id=`email-label`) Email
     input(type='text' id='email' name='email' value=user.email)
     button(type='submit') Confirm Changes
-  form(action=`/users/delete/${user.username}` method='post')
+  form(action=`/users/delete/${user.id}` method='post')
     button(type='submit') Delete Account
     a(href='/questions' role='button') Cancel  

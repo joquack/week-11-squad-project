@@ -10,3 +10,27 @@ const {
   requireAuth,
   restoreUser,
 } = require("../../auth");
+
+const permission = async (req, res, next) => {
+  const numId = parseInt(req.params.id);
+  console.log(numId, `*********`, req.session.auth);
+  const name = req.params.userName;
+  let user = await db.User.findByPk(numId);
+  if (req.session.auth == null) {
+    return res.render("not-auth");
+  }
+  if (req.session.auth.userId == req.params.id) {
+    return next();
+  }
+  return res.render("not-auth", { auth: req.session.auth.userId });
+};
+
+router.post("/users/delete/:id", permission, async (req, res) => {
+  const id = req.session.auth.userId;
+  const user = await db.User.findByPk(id);
+  await user.destroy();
+  logoutUser(req, res);
+  res.redirect("/");
+});
+
+module.exports = router;

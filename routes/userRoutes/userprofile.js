@@ -4,6 +4,7 @@ const db = require("../../db/models");
 
 router.get("/users/:id(\\d+)/:userName", async (req, res) => {
   const numId = parseInt(req.params.id);
+  console.log(`*****`, Object.keys(req.signedCookies));
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
   try {
