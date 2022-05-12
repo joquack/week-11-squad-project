@@ -12,6 +12,6 @@ block content
     +field('Email Address', 'email', user.email)
     +field('Password', 'password', user.password, 'password')
     +field('Confirm Password', 'confirmPassword', '', 'password')
-    div(class='py-4')
-      button(type='submit') Confirm Changes
-      a(href='/') Cancel
+    div(class='submit-cancel-btns')
+      button(type='submit' class='btn confirm-changes-btn') Confirm Changes
+      a(href='/' class='btn cancel-btn') Cancel
