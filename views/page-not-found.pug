@@ -1,16 +1,7 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Not Found | StackCode 
-  body 
-    p Seem like you got lost!~
+extends layout.pug
+
 include utils.pug
 
 block content
+  p Seem like you got lost!~
   +validationErrorSummary(errors)
-  p: a(href='/users/login') Login
-  p: a(href='/users/signup') Don't have an account?
-  p: a(href='/') Go Back Home?

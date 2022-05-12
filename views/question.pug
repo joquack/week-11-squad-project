@@ -1,7 +1,13 @@
 extends layout.pug
 
 block content
-    div= question.content
+    div.question-page-card
+        div= question.content
+        if locals.authenticated
+                        td= question.User.username
+                        td
+                            a(href=`/questions/edit/${question.id}` role='button') Edit
+                            a(href=`/questions/delete/${question.id}` role='button') Delete
     if locals.authenticated
         div
             a(href='/answers/'+question.id+'/create') Submit New Answer

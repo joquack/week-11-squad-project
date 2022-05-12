@@ -16,11 +16,10 @@ const checkPermissions = (question, currentUser) => {
 
 
 router.get("/", asyncHandler(async (req, res) => {
-  const questions = await db.Question.findAll();
+  const questions = await db.Question.findAll({include: User});
   res.render("question-list", { title: "Questions", questions });
 })
 );
-
 
 
 router.get("/create", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
@@ -69,6 +68,7 @@ router.post("/create", csrfProtection, requireAuth, questionValidators, asyncHan
   }
 })
 );
+
 
 router.get(
   "/edit/:id(\\d+)",

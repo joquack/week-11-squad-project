@@ -13,6 +13,7 @@ const userLogin = require("./routes/userRoutes/userlogin");
 const signupRouter = require("./routes/userRoutes/usersignup");
 const userProfile = require("./routes/userRoutes/userprofile");
 const userLogout = require("./routes/userRoutes/userlogout");
+const userEdit = require("./routes/userRoutes/useredit");
 
 const answerRouter = require("./routes/answer");
 
@@ -46,16 +47,15 @@ store.sync();
 
 app.use(restoreUser);
 
-
 app.use(indexRouter);
 app.use(userLogin);
 app.use(signupRouter);
 app.use(userProfile);
 app.use(userLogout);
+app.use(userEdit);
+app.use("/answers", answerRouter);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);
-app.use("/answers", answerRouter);
-//changes
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -72,9 +72,9 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   console.log();
   if (req.session.auth) {
-    return res.render("page-not-found-logged");
+    return res.render("page-not-found-logged", {title:'Not Found'});
   }
-  res.render("page-not-found");
+  res.render("page-not-found", {title:'Not Found'});
 });
 
 module.exports = app;
