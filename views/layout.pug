@@ -7,7 +7,9 @@ html
     title J3C Group - #{title}
     link(rel='stylesheet' href='../stylesheets/styles.css')
     link(rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0")
-    script(src="../public/javascripts/answer-answervotes.js" type="module")
+    //- script(src="/javascripts/answer-answervotes.js" type="module")
+    script(src="/javascripts/answerDelete.js" type="module")
+    script(src="/javascripts/answerEdit.js" type="module")
 
 
   body
@@ -25,7 +27,7 @@ html
 
         div(class='nav-questions-btn nav-row')
           span.material-symbols-outlined='quiz'
-            a(href='/' class='home-btn nav-btn btn') Questions
+            a(href='/questions' class='home-btn nav-btn btn') Questions
 
         div(class='nav-tag-btn nav-row')
           span.material-symbols-outlined='category'

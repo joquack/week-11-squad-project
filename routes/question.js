@@ -21,18 +21,18 @@ router.get("/", asyncHandler(async (req, res) => {
 })
 );
 
-router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
   const questionId = parseInt(req.params.id, 10);
   const question = await db.Question.findByPk(questionId, {include: User});
-  const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
-  // let x = Object.keys(answers[0].dataValues)
-  // console.log(Object.keys(answers[0]))
-  // console.log('**********************************************************************')
-  // console.log(answers[0].dataValues)
-  // answers[0].dataValues
-  res.render("question", { title: `${question.title}`, question, answers});
+
+  const answer = await db.Answer.build();
+  const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
+  const votes = answers[0].dataValues.AnswerVotes
+
+  res.render("question", { title: `${question.title}`, question, votes, questionId, answer, answers, csrfToken: req.csrfToken()});
 })
 );
+
 
 router.get("/create", csrfProtection, requireAuth, asyncHandler(async (req, res) => {
   const question = await db.Question.build();
