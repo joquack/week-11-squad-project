@@ -19,7 +19,7 @@ router.get(
     const id = req.session.auth.userId;
     const user = await db.User.findByPk(id);
     const changes = await db.User.build();
-    res.render("profile-edit");
+    res.render("profile-edit", {title: "Edit Profile"});
   }
 );
 
@@ -92,7 +92,7 @@ router.put(
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render("profile-edit", {
-        title: "Sign Up",
+        title: "Edit Profile",
         user,
         errors,
         csrfToken: req.csrfToken(),

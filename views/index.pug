@@ -5,25 +5,10 @@
   //- link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   //- script(src="/javascripts/index.js" type="module" defer)
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Home | StackCode
-  body
+extends layout.pug
+
 block content
   p This is where questions will live!
   if locals.authenticated
     span So what do you want to do, #{user.firstName.charAt(0).toUpperCase() + user.username.slice(1)}?
-    div
-      a(href=`/users/${user.id}/${user.firstName}`) My Profile
-    div
-      a(href=`/users`) All Users
-    form(action='/users/logout' method='post')
-      button(type='submit') Logout
-  else
-    div(class='py-4')
-      a(href='/users/login') Login
-      a(href='/users/signup') Sign Up!
+  //- else
