@@ -7,6 +7,7 @@ router.get("/users/:id(\\d+)/:userName", async (req, res) => {
   console.log(`*****`, Object.keys(req.signedCookies));
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
+  console.log(user.username, `!!!!!!!!!!!!!!`);
   try {
     console.log(user.username == name, user.username, name);
     if (
@@ -20,7 +21,15 @@ router.get("/users/:id(\\d+)/:userName", async (req, res) => {
       return res.render("profile-found-logged", { name });
     }
     if (user.username != name) {
-      return res.render("profile-not-found", { user: req.session.auth.userId });
+      console.log(`@@@@@@@HERE@@@@@@@@@@ first`);
+      // res.send("wtf are you doingß");
+      // return res.render(`not-logged`, {
+      //   name,
+      //   title: `${
+      //     name.charAt(0).toUpperCase() + name.slice(1)
+      //   }'s Profile | Stack Code`,
+      // });
+      return res.render("profile-not-found");
     }
     if (user.username == name && req.session.auth.userId != numId) {
       return res.render("limited-view", {
