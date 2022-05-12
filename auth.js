@@ -15,7 +15,7 @@ const logoutUser = (req, res) => {
 
 const requireAuth = (req, res, next) => {
   if (!res.locals.authenticated) {
-    return res.render("not-auth");
+    return res.render("not-auth", {title: `Unauthorized | StackCode`});
   }
   return next();
 };
