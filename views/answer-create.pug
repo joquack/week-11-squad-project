@@ -8,6 +8,6 @@ block content
     input(type='hidden' name='_csrf' value=csrfToken)
     input(type='hidden' name='questionId' value=questionId)
     +field('Answer', 'body', answer.body)
-    div(class='create-cancel-btns')
+    div(class='submit-cancel-btns')
       button(type='submit' class='btn create-btn') Submit Answer
       a(href='/questions/' class='btn cancel-btn') Cancel
