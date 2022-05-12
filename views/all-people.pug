@@ -8,8 +8,8 @@ block content
           th(scope='col' class='user-table-headers') Last Name
           th(scope='col' class='user-table-headers') UserName
       tbody
-        each question in all
+        each person in all
             tr
-                td(class='user-info')= question.firstName
-                td(class='user-info')= question.lastName
-                td(class='user-info')= question.username
+                td(class='user-info')= person.firstName
+                td(class='user-info')= person.lastName
+                td(class='user-info')= person.username
