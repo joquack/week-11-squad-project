@@ -187,3 +187,7 @@ TEST
     background: #bb4d00;
     box-shadow: #bb4d00 0px 4px 1px;
 } */
+
+.hidden {
+    display: none;
+}
