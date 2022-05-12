@@ -10,27 +10,34 @@ block content
                 span.material-symbols-outlined='person'
                     a(href='/' class='user-link')=question.User.username
             if locals.user.id=== question.userId
-            div.edit-delete-buttons
-                a(class='btn btn-primary card-btn' href=`/questions/edit/${question.id}` role='button') Edit
-                a(class='btn btn-danger ml-2 card-btn' href=`/questions/delete/${question.id}` role='button') Delete
+                div.edit-delete-buttons
+                    a(class='btn card-btn question-delete-btn' href=`/questions/delete/${question.id}` role='button') Delete
+                    a(class='btn card-btn question-edit-btn' href=`/questions/edit/${question.id}` role='button') Edit
 
     if answers && answers.length > 0
         h3 Answers
         input(type='search' onkeydown='populate(this.value)' value='' class='search-bar' placeholder='Search')
         each answer in answers
-            div.answer-card
-                div= answer.body
+            div(class="answer-card" id=`answer-card-${answer.id}`)
+                div(id=`${answer.id}-body`)=answer.body
+                div(id=`edit-form-div-${answer.id}`)
+                    form(class='hidden' id=`edit-form-${answer.id}`)
+                                textarea(type="textarea" cols="70" rows="10" name="body" value=answer.body id=`${answer.id}-edit-body`)
                 div(class="answer-page-card-bottom-details card-bottom-row")
                     div(class="question-card-user")
                         span.material-symbols-outlined='person'
                             a(href='/' class='user-link')=answer.User.username
                     if locals.user.id === answer.userId
-                    div.edit-delete-buttons
-                        a(class='btn btn-primary card-btn' href=`/answers/edit/${answer.id}` role='button') Edit Answer
-                        a(class='btn btn-danger ml-2 card-btn' href=`/answers/delete/${answer.id}` role='button') Delete Answer
+                        div.edit-delete-buttons
+                            button(class='btn card-btn answer-delete-btn' id=`delete-answer-${answer.id}`) Delete
+                            button(class="btn card-btn answer-edit-btn" id=`edit-btn-${answer.id}`) Edit
+                            button(class="btn card-btn edit-submit hidden" id=`edit-submit-${answer.id}`) Submit Edit
+
+
     else
         p: em There are no answers yet.
-
+    if locals.authenticated
+    h3 Create an Answer
     div.create-answer-form
         +validationErrorSummary(errors)
         form(action= '/answers/'+questionId+'/create' method='post' class="new-answer-div")
