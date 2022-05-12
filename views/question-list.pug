@@ -1,9 +1,11 @@
 extends layout.pug
 
 block content
+    script(src="/javascripts/questions-search.js" type="module")
     div(class=search-bar)
         label(for="title") Search Questions
-        input(type='search' onkeydown='populate(this.value)' value='' class='search-bar' placeholder='Search')
+        input(type='search' onkeydown='' value='' class='search-bar' placeholder='Search')
+        button(type='submit' class='btn search-btn') Search
     if questions && questions.length > 0
     if locals.authenticated
         each question in questions
