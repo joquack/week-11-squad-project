@@ -24,7 +24,8 @@ const permission = async (req, res, next) => {
   ) {
     return next();
   }
-  return res.render("not-auth", { auth: req.session.auth.userId });
+  console.log(`HEELO~~~~~~~~~~~~~~~~~~~`);
+  return res.redirect("/");
 };
 
 router.get(
