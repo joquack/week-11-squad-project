@@ -13,14 +13,22 @@ block content
             a(href='/answers/'+question.id+'/create') Submit New Answer
     if votes
         h3 Answers
+        - var voteNum = 0
         each answer in votes
             if answer.dataValues.vote == true
-                p 1
-                div #{'answer.dataValues.votes'}
+                - voteNum++
                 if locals.authenticated
                     div
-                        p answer.dataValues.votes
+                        p= voteNum
                         a(class='btn btn-primary' href=`/answers/edit/${question.id}` role='button') Edit
                         a(class='btn btn-danger ml-2' href=`/answers/delete/${question.id}` role='button') Delete
+            else
+                - voteNum--
+                if locals.authenticated
+                    div
+                        p= voteNum
+                        a(class='btn btn-primary' href=`/answers/edit/${question.id}` role='button') Edit
+                        a(class='btn btn-danger ml-2' href=`/answers/delete/${question.id}` role='button') Delete
+
     else
         p: em There are no answers yet.
