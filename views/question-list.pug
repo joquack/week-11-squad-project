@@ -15,7 +15,7 @@ block content
                     div.question-card-tag
                     div.question-card-user
                         span.material-symbols-outlined='person'
-                            a(href='/' class='home-btn nav-btn btn')=question.User.username
+                            a(href='/' class='user-link')=question.User.username
 
     if !locals.authenticated
         table

@@ -1,24 +1,42 @@
 extends layout.pug
 
+include utils.pug
+
 block content
     div.question-page-card
         div= question.content
-        if locals.authenticated
-                        td= question.User.username
-                        td
-                            a(href=`/questions/edit/${question.id}` role='button') Edit
-                            a(href=`/questions/delete/${question.id}` role='button') Delete
-    if locals.authenticated
-        div
-            a(href='/answers/'+question.id+'/create') Submit New Answer
+        div(class="question-page-card-bottom-details card-bottom-row")
+            div(class="question-card-user")
+                span.material-symbols-outlined='person'
+                    a(href='/' class='user-link')=question.User.username
+            if locals.user.id=== question.userId
+            div.edit-delete-buttons
+                a(class='btn btn-primary card-btn' href=`/questions/edit/${question.id}` role='button') Edit
+                a(class='btn btn-danger ml-2 card-btn' href=`/questions/delete/${question.id}` role='button') Delete
+
     if answers && answers.length > 0
         h3 Answers
+        input(type='search' onkeydown='populate(this.value)' value='' class='search-bar' placeholder='Search')
         each answer in answers
-            div
+            div.answer-card
                 div= answer.body
-                if locals.authenticated
-                    div
-                        a(class='btn btn-primary' href=`/answers/edit/${answer.id}` role='button') Edit
-                        a(class='btn btn-danger ml-2' href=`/answers/delete/${answer.id}` role='button') Delete
+                div(class="answer-page-card-bottom-details card-bottom-row")
+                    div(class="question-card-user")
+                        span.material-symbols-outlined='person'
+                            a(href='/' class='user-link')=answer.User.username
+                    if locals.user.id === answer.userId
+                    div.edit-delete-buttons
+                        a(class='btn btn-primary card-btn' href=`/answers/edit/${answer.id}` role='button') Edit Answer
+                        a(class='btn btn-danger ml-2 card-btn' href=`/answers/delete/${answer.id}` role='button') Delete Answer
     else
         p: em There are no answers yet.
+
+    div.create-answer-form
+        +validationErrorSummary(errors)
+        form(action= '/answers/'+questionId+'/create' method='post' class="new-answer-div")
+            input(type='hidden' name='_csrf' value=csrfToken)
+            input(type='hidden' name='questionId' value=questionId)
+            +field('Answer', 'body', answer.body, 'textarea')
+            div(class='submit-cancel-btns')
+                button(type='submit' class='btn create-btn') Submit Answer
+                a(href='/questions/' class='btn cancel-btn') Cancel
