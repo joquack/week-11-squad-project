@@ -13,6 +13,7 @@ html
         div#welcome-message Welcome #{user.firstName}!
         a(href='/' class='home-btn btn') Go Back Home
         a(href=`/users/${user.id}/${user.firstName}` class='profile-btn btn') Go To Profile
+        a(href=`/users` class='all-users-btn btn') All Users
         form(action='/users/logout' method='post')
           button(class='logout-btn btn' type='submit') Logout
       else
