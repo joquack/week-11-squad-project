@@ -50,7 +50,7 @@ a {
 
 body {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1000px;
     display: flex;
     background-color: white;
     color: white;
@@ -115,6 +115,7 @@ a.question-title {
     background-color: gainsboro;
     color: black;
     flex-direction: column;
+    width: 700px;
 }
 
 
