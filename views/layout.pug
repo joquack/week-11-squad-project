@@ -14,9 +14,10 @@ html
 
   body
     div.nav-bar
-      if locals.authenticated
-        img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
 
+      img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
+
+      div(class="main-nav-buttons")
         div(class='nav-home-btn nav-row')
           span.material-symbols-outlined='home'
             a(href='/' class='home-btn nav-btn btn') Home
@@ -33,30 +34,28 @@ html
           span.material-symbols-outlined='category'
             a(href='/' class='home-btn nav-btn btn') Tags
 
-        div.nav-activity-btn(class='nav-home-btn nav-row')
-          span.material-symbols-outlined='article'
-            a(href='/' class='home-btn nav-btn btn') Activity
+      div(class="responsive-nav-buttons")
+        if locals.authenticated
 
-        div(class='nav-user-btn nav-row')
-          span.material-symbols-outlined='account_circle'
-            a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn btn') User
+          div.nav-activity-btn(class='nav-home-btn nav-row-responsive user-btn')
+            span.material-symbols-outlined='article'
+              a(href='/' class='home-btn nav-btn btn') Activity
 
-        div(class='nav-search-bar nav-row')
-          span.material-symbols-outlined='search'
-            a(href='/' class='home-btn nav-btn btn') Search
+          div(class='nav-user-btn nav-row-responsive user-btn')
+            span.material-symbols-outlined='account_circle'
+              a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn btn') User
 
-        div(class='nav-create-question-btn nav-row')
-          a(href='/questions/create') Create Question
+          div(class='nav-logout-btn nav-row-responsive')
+            form(action='/users/logout' method='post')
+              button(class='log-btn btn' type='submit') Logout
 
-        div(class='nav-logout-btn nav-row')
-          form(action='/users/logout' method='post')
-            button(class='logout-btn btn' type='submit') Logout
-      else
-        div(class='login-header')
-          span
-            a(href='/users/login' class='login-btn btn') Login
-            a(href='/users/Signup' class='signup-btn btn') Signup
-            //Does this work?
+          div(class='nav-create-question-btn nav-row-responsive')
+                a(href='/questions/create') Create Question
+        else
+          div(class='login-button nav-row-responsive')
+              a(href='/users/login' class='log-btn btn') Login
+          div(class='signup-button nav-row-responsive')
+              a(href='/users/Signup' class='log-btn signup-btn btn') Signup
 
 
     .main-content
