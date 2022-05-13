@@ -3,9 +3,10 @@ extends layout.pug
 include utils.pug
 
 block content
+    link(rel='stylesheet' href='/stylesheets/answer-playaround.css')
     script(src="/javascripts/question.js" type="module")
-    div.question-page-card
-        div= question.content
+    div.question-page-card.answer
+        div(class='question-content')= question.content
         div(class="question-page-card-bottom-details card-bottom-row")
             div(class="question-card-user")
                 span.material-symbols-outlined='person'
@@ -17,7 +18,7 @@ block content
     if locals.authenticated
         button(id=`new-answer-create`) Create Answer
         div(class='hidden' id='create-answer-form')
-            div
+            div(id='create-answer-header')
                 h3 Create an Answer
             div(class="hidden" id="questionIdDiv")=`${question.id}`
             +validationErrorSummary(errors)

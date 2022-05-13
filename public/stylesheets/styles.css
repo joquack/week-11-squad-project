@@ -8,7 +8,6 @@
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 } */
-
 a {
     display: inline-block;
     box-sizing: content-box;
@@ -290,26 +289,7 @@ a.question-title {
 }
 
 /* ************** Answer Page Layout ************** */
-#create-answer-form {
-    background-color: grey;
-    display: grid;
-    gap: 10px;
-    justify-content: space-evenly;
-    justify-items: center;
-    align-content: space-evenly;
-    align-items: center;
-}
-#create-answer-form.hidden {
-    display: none
-}
 
-#answers-header {
-    align-self: center;
-}
-
-.new-answer-div {
-    justify-content: center;
-}
 /* ************** Splash Page ************** */
 
 .top-bar {

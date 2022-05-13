@@ -1,0 +1,101 @@
+* {
+    background-color: #0b0c1b;
+}
+html
+body {
+    background-color: #0b0c1b;
+}
+
+.nav-bar {
+    background-color: #0b0c1b
+}
+
+
+a,
+#new-answer-create,
+.btn {
+    background-color: #1cbfff;
+}
+
+.nav-btn,
+.material-symbols-outlined {
+    background-color: #0b0c1b;
+    color: white;
+}
+
+
+.main-content,
+.question-content,
+.title-card,
+#layout-header,
+.question-page-card,
+.answer-card,
+.answer-page-card-bottom-details,
+.answer-body,
+.card-bottom-row,
+.question-card-user,
+.edit-delete-buttons,
+.user-link,
+.answers-container,
+#answers-header,
+.answer-card>p,
+.no-answers-found,
+#create-answer-form,
+#create-answer-header,
+#create-answer-header>h3,
+.submit-cancel-btns,
+.card-btn,
+.question-card-user>.material-symbols-outlined {
+    background-color: #26273b;
+    color: white;
+}
+
+.answer-card {
+    margin: 7px 0px;
+    border: #1cbfff 3px solid;
+}
+
+#create-answer-form {
+    display: grid;
+    gap: 10px;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+    align-items: center;
+}
+#create-answer-form.hidden {
+    display: none
+}
+
+#answers-header {
+    align-self: center;
+}
+
+.new-answer-div {
+    justify-content: center;
+}
+
+.search-bar {
+    color: white;
+    margin: 5px 40px;
+    height: 40px;
+    font-size: large;
+}
+.search-bar::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+.answer-delete-btn,
+.answer-edit-btn {
+    background-color: #1cbfff;
+    color: black;
+}
+
+.main-content {
+    margin-bottom: 5px;
+}
+.no-answers-found {
+    padding: 0 333px;
+    margin-top: 20px;
+}
