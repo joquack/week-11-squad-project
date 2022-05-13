@@ -17,7 +17,7 @@ block content
 
     if answers && answers.length > 0
         h3 Answers
-        input(type='search' onkeydown='populate(this.value)' value='' class='search-bar' placeholder='Search')
+        input(type='search' value='' class='search-bar' placeholder='Search')
         div(class="answers-container")
             each answer in answers
                 div(class="answer-card" id=`answer-card-${answer.id}`)
