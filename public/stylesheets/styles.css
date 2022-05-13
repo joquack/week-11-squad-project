@@ -50,7 +50,7 @@ a {
 
 body {
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1000px;
     display: flex;
     background-color: white;
     color: white;
@@ -68,23 +68,84 @@ body {
     vertical-align: top;
 }
 
+.log-btn {
+    all: initial;
+    box-sizing: content-box;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #018dc4;
+    border-radius: 9px;
+    color: rgba(255, 255, 255, 0.9);
+    text-overflow: clip;
+    background-color: #018dc4;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
+    margin: 5px;
+    margin-left: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    float: left;
+    padding: 3px 10px 3px 5px;
+    margin-bottom: 0px;
+}
+
+.signup-btn {
+    background-color: #F77A61;
+}
+
 .nav-row {
-    margin-bottom: 15px;
+    display: flex;
+    margin-bottom: 10px;
     height: 18px;
     line-height: 18px;
 }
 
-.logout-btn {
+.nav-row-responsive {
+    display: flex;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+
+.user-btn {
+    height: 18px;
+    line-height: 18px;
+}
+.main-nav-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.responsive-nav-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.nav-create-question-btn {
+    margin-top: 20px;
+}
+
+/* .logout-btn  {
     margin-top: 30px;
     background-color: #018dc4;
-}
+} */
 
 .title-card {
     background-color: white;
     margin: 1px 2px 10px 2px;
 }
 
+/* .login-button {
 
+} */
+
+/* .login-btn {
+    background-color: #018dc4;
+} */
+/* a(href='/users/login' class='login-btn nav-btn btn') Login
+div(class='signup-button nav-row')
+a(href='/users/Signup' class='signup-btn btn') Signup */
 
 /* ******* Question Card ******* */
 .question-list-card {
@@ -112,11 +173,18 @@ a.question-title {
 
 .main-content {
     display: flex;
+    flex-basis: 600px;
+    flex-grow: 0;
+    flex-shrink: 0;
     background-color: gainsboro;
     color: black;
     flex-direction: column;
+    width: 700px;
 }
 
+.splash {
+    color: black;
+}
 
 
 /* ******* Answer Card ******* */
@@ -190,7 +258,7 @@ a.question-title {
 }
 
 /* LAYOUT */
-
+/* Does this work? */
 
 
 .login-header {
@@ -212,14 +280,135 @@ a.question-title {
     align-items: center;
 }
 
-.container {
+/* .container {
     border: solid white;
     grid-area: 2 / 2 / 5 / 5;
-}
+} */
 
 .hidden {
     display: none;
 }
+
+/* ************** Splash Page ************** */
+
+.top-bar {
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 70px;
+    display: flex;
+    background-color: white;
+    color: white;
+    font-family: "Helvetica Neue";
+    justify-content: space-between;
+}
+.splash-logo {
+    color: black;
+    font-family: "Helvetica Neue";
+    font-size: 60px;
+    font-weight: 900px;
+    display: flex;
+}
+.splash-buttons {
+    display: flex;
+}
+
+.splash-button {
+    color: black;
+    font-family: "Helvetica Neue";
+    font-size: 18px;
+}
+
+body.splash-page-body {
+    all: initial;
+}
+
+.splash-page-container {
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 700px;
+    display: flex;
+    background-color: white;
+    color: white;
+    font-family: "Helvetica Neue";
+}
+
+.splash-right-container {
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    min-width: 500px;
+    flex-basis: 500px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    color: black;
+    justify-content: end
+}
+
+
+
+.splash-left-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-width: 700px;
+    flex-basis: 700px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: white;
+    color: black;
+    border: #181A1B;
+    background-image: url("../images/bg5.png");
+    background-size: cover;
+    margin: 30px;
+
+}
+
+.message-box {
+    color: white;
+    font-family: "Helvetica Neue";
+    font-size: 60px;
+    font-weight: 900px;
+    display: flex;
+    text-shadow: black 5px 0 10px;
+    margin: 12px 15px 12px 15px;
+    text-align: center;
+}
+
+.icon-box {
+    display: flex;
+    height: 400px;
+    background-image: url("../images/icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.proceed {
+    color: black;
+    font-family: "Helvetica Neue";
+    font-size: 60px;
+    font-weight: 900px;
+}
+
+
+/* .splash-message-display-container {
+    display: flex;
+    background-image: url("../images/bg3.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+} */
+/* .splash-navigation-container {
+    border: black solid 1px;
+    display: flex;
+} */
+
+
+/* div(id="splash-page-container" class="splash-page-container")
+    div(id="top-container" class="top-container")
+        div(id="logo-container" class="logo-container")
+        div(id="menu-container" class="menu-container")
+    div(id="center-container" class="center-container")
+        div(id="message-display-container" class="message-display-container")
+        div(id="navigation-container" class="navigation-container") */
 
 /* ************** TEST FEATURES ************** */
 
