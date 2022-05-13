@@ -15,8 +15,7 @@ html
   body
     div.nav-bar
 
-      img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
-
+      div(class="nav-bar-logo")
       div(class="main-nav-buttons")
         div(class='nav-home-btn nav-row')
           span.material-symbols-outlined='home'
@@ -41,9 +40,9 @@ html
             span.material-symbols-outlined='article'
               a(href='/' class='home-btn nav-btn btn') Activity
 
-          div(class='nav-user-btn nav-row-responsive user-btn')
+          div(class='nav-user-btn nav-row-responsive nav-row-responsive-btn user-btn')
             span.material-symbols-outlined='account_circle'
-              a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn nav-row-responsive-btn btn') User
+              a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn btn') User
 
           div(class='nav-logout-btn nav-row-responsive')
             form(action='/users/logout' method='post')

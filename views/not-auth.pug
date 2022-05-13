@@ -1,19 +1,6 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(http-equiv="X-UA-Compatible", content="IE=edge")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Unauthorized | StackCode 
-  body
-    div
-      p You Are Not Authorized To Access This Page
-include utils.pug
+extends layout.pug
 
 block content
-    if auth
-      a(href='/') Head Back Home!
-    else
-      p: a(href='/users/login') Login
-      p: a(href='/users/signup') Don't have an account?
-      p: a(href='/') Go Back Home?
+  div(class="error-box")
+    div(class="error-box-message") Awkward.. we're not able to share the page you requested.
+    div(class="error-box-picture")
