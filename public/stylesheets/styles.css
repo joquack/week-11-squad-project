@@ -27,6 +27,20 @@ a {
   text-decoration: none;
 }
 
+.nav-row:hover,
+.nav-row-responsive-btn:hover {
+  border: 1px solid salmon;
+  color: salmon;
+  border-radius: 40px;
+}
+
+.nav-row:active {
+  border: 1px solid salmon;
+  color: salmon;
+  border-radius: 40px;
+  background-color: #f7d7c8;
+}
+
 /* a:hover {
     background-color: #bb4d00;
     transition: transform .5s;
@@ -72,12 +86,12 @@ body {
   box-sizing: content-box;
   cursor: pointer;
   padding: 5px;
-  border: 1px solid #018dc4;
-  border-radius: 9px;
+  /* border: 1px solid #018dc4; */
+  border-radius: 5px;
   color: rgba(255, 255, 255, 0.9);
   text-overflow: clip;
-  background-color: #018dc4;
-  box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
+  background-color: #33adff;
+  border: 1px solid #5f8097;
   margin: 5px;
   margin-left: 0px;
   font-size: 16px;
@@ -97,12 +111,16 @@ body {
   margin-bottom: 10px;
   height: 18px;
   line-height: 18px;
+  padding-bottom: 6px;
+  padding-left: 5px;
 }
 
 .nav-row-responsive {
   display: flex;
-  line-height: 25px;
+  line-height: 18px;
   margin-bottom: 10px;
+  padding-bottom: 5px;
+  padding-left: 5px;
 }
 
 .user-btn {
@@ -133,6 +151,7 @@ body {
 .title-card {
   background-color: white;
   margin: 1px 2px 10px 2px;
+  border: 2px solid #5f8097;
 }
 
 /* .login-button {
@@ -162,7 +181,7 @@ a.question-title {
 .nav-bar {
   display: flex;
   flex-direction: column;
-  flex-basis: 200px;
+  flex-basis: 150px;
   flex-grow: 0;
   flex-shrink: 0;
   background-color: white;
@@ -175,7 +194,7 @@ a.question-title {
   flex-basis: 600px;
   flex-grow: 0;
   flex-shrink: 0;
-  background-color: gainsboro;
+  background-color: #e9f6ff;
   color: black;
   flex-direction: column;
   width: 700px;
@@ -378,6 +397,32 @@ body.splash-page-body {
   font-family: "Helvetica Neue";
   font-size: 60px;
   font-weight: 900px;
+}
+
+/* *************** Error Box ************** */
+.error-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-box > div {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.error-box-picture {
+  background-image: url("../images/icon-error.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 300px;
+  width: 400px;
+}
+
+.error-box-message {
+  font-size: 28px;
+  color: black;
+  font-family: "Helvetic Nueue";
 }
 
 /* .splash-message-display-container {
