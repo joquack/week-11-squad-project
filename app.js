@@ -15,6 +15,7 @@ const userProfile = require("./routes/userRoutes/userprofile");
 const userLogout = require("./routes/userRoutes/userlogout");
 const userEdit = require("./routes/userRoutes/useredit");
 const userDelete = require("./routes/userRoutes/userdelete");
+const demoUser = require("./routes/userRoutes/demouser");
 
 const answerRouter = require("./routes/answer");
 
@@ -24,7 +25,7 @@ const app = express();
 
 // view engine setup
 app.set("view engine", "pug");
-app.use(express.static('./public'))
+app.use(express.static("./public"));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -56,6 +57,7 @@ app.use(userProfile);
 app.use(userLogout);
 app.use(userEdit);
 app.use(userDelete);
+app.use(demoUser);
 app.use("/answers", answerRouter);
 // app.use("/users", usersRouter);
 app.use("/questions", questionRouter);

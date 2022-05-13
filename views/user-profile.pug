@@ -1,12 +1,59 @@
 doctype html
 html
   head
+    script(src="/javascripts/user-profile.js" type="module")
+    link(rel="stylesheet" href="/stylesheets/user-profile.css")
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
     title #{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)}'s Profile | StackCode
   body
-      span(id='profile-title') Welcome #{user.username.charAt(0).toUpperCase() + user.username.slice(1)}!
-  form(action='/users/logout' method='post')
-      button(type='submit') Logout
-  a(href='/') Head Back Home!
-  a(href=`/users/edit/${user.id}/${user.username}`) Edit Profile !
+    div.nav-bar
+      if locals.authenticated
+        //- div.logo
+        //-   img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
+
+        div(class='nav-home')
+            span
+            a(href='/' class='home fa-home') Home
+            img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
+
+        div(class='nav-about-btn nav-row')
+            span
+            a(href='/about' class='home') About
+
+        div(class='nav-questions-btn nav-row')
+            span
+            a(href='/questions' class='home') Questions
+
+        div(class='nav-tag-btn nav-row')
+            span
+            a(href='/' class='home') Tags
+
+        div.nav-activity-btn(class='nav-activity')
+            span
+            a(href='/' class='home') Activity
+
+        div(class='nav-search-bar nav-row')
+            span
+            a(href='/' class='home') Search
+
+        div(class='nav-create-question-btn nav-row')
+            span
+            a(href='/questions/create' class='home') Create Question
+
+
+        div(class='user-dropdown')
+          span 
+          a(href=`/users/${user.id}/${user.username}` class='home') User
+            div#edit-profile
+              a(href=`/users/edit/${user.id}/${user.username}`) Edit Profile !
+        div(id=`hello-message`)
+          span Welcome #{user.username.charAt(0).toUpperCase() + user.username.slice(1)}!
+      else
+        div(class='login-header')
+          span
+            a(href='/users/login' class='login-btn btn') Login
+            a(href='/users/Signup' class='signup-btn btn') Signup
+        div(id=`logout-button`)
+          form(action='/users/logout' method='post')
+              button(type='submit') Logout
