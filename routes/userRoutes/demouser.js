@@ -6,7 +6,7 @@ const db = require("../../db/models");
 router.get("/users/demo", async (req, res) => {
   const user = await db.User.findByPk(1);
   loginUser(req, res, user);
-  res.redirect("/");
+  res.redirect("/home");
 });
 
 module.exports = router;
