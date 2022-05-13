@@ -13,7 +13,7 @@ a {
   display: inline-block;
   box-sizing: content-box;
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 6px 12px;
   border: 1px solid #018dc4;
   border-radius: 40px;
   color: rgba(255, 255, 255, 0.9);
@@ -22,7 +22,7 @@ a {
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
   margin: 5px;
 
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   text-decoration: none;
 }
@@ -71,6 +71,17 @@ body {
 }
 
 /* Navigation Bar */
+
+.nav-bar-logo {
+  background-image: url("../images/nav-bar-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 100px;
+  width: 100px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
 .nav-btn {
   all: initial;
   font-size: 18px;
@@ -152,6 +163,7 @@ body {
   background-color: white;
   margin: 1px 2px 10px 2px;
   border: 2px solid #5f8097;
+  padding-left: 10px;
 }
 
 /* .login-button {
@@ -168,7 +180,8 @@ a(href='/users/Signup' class='signup-btn btn') Signup */
 /* ******* Question Card ******* */
 .question-list-card {
   background-color: #f7d7c8;
-  margin: 2px 5px 2px 5px;
+  margin: 2px 5px 10px 5px;
+  border: 1px solid #5f8097;
 }
 
 a.question-title {
@@ -179,6 +192,8 @@ a.question-title {
 }
 
 .nav-bar {
+  top: 0;
+  position: sticky;
   display: flex;
   flex-direction: column;
   flex-basis: 150px;
@@ -209,7 +224,8 @@ a.question-title {
 .answer-card {
   background-color: white;
   padding: 15px 10px 15px 10px;
-  margin: 2px 5px 2px 5px;
+  margin: 2px 5px 10px 5px;
+  border: 1px solid #5f8097;
 }
 
 /* ******* Question & Answer Card ******* */
