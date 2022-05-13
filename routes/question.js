@@ -27,18 +27,38 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
 
   const answer = await db.Answer.build();
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
+  let arr = []
+  for (userAnswer of answers) arr.push(userAnswer.dataValues.AnswerVotes)
+  let arrVote = arr.flat()
 
   console.log('******************HERE*****************')
-  // const votes = answers[0].dataValues.AnswerVotes
-  let arr = []
-  for (userAnswer of answers){
-    arr.push(userAnswer.dataValues.AnswerVotes)
-    // for (userVotes of arrVote){
-    //   console.log(userVotes.dataValues.vote)
-    //   }
+  let userVotes = {}
+  for (each of answers){
+    if(each.dataValues.AnswerVotes.length == false){
+      userVotes[each.id] = 0
+    }
+    else {
+      let vArr = each.dataValues.AnswerVotes
+      console.log(vArr)
+      for (vote of vArr){
+        if(!userVotes[each.id]){
+          if(vote.dataValues.vote == true)
+            userVotes[each.id] = 1
+
+          else
+            userVotes[each.id] = -1
+        }
+        else {
+          if(vote.dataValues.vote == true)
+            userVotes[each.id]++
+
+          else
+            userVotes[each.id]--
+        }
+      }
+    }
+    console.log(userVotes)
   }
-  let arrVote = arr.flat()
-  console.log(arrVote)
   console.log('******************END*******************')
 
   let loggedInUser
@@ -46,7 +66,7 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
         loggedInUser = req.session.auth.userId
     }
 
-  res.render("question", { title: `${question.title}`, loggedInUser, question, questionId, answer, answers, arrVote, csrfToken: req.csrfToken()});
+  res.render("question", { title: `${question.title}`, loggedInUser, question, questionId, answer, answers, userVotes, csrfToken: req.csrfToken()});
 })
 );
 

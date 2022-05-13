@@ -18,19 +18,10 @@ block content
         h3 Answers
         input(type='search' onkeydown='populate(this.value)' value='' class='search-bar' placeholder='Search')
         each answer in answers
-            - let voteNum = 0
-            each userVote in arrVote
-                if userVote.dataValues.vote == true
-                    - voteNum++
-                else
-                    - voteNum--
+
             div(class="answer-card" id=`answer-card-${answer.id}`)
                 div(id=`${answer.id}-body`)=answer.body
-                if voteNum == 0
-                    p No votes yet
-                else
-                    p= voteNum
-                    - voteNum = 0
+                p= userVotes[answer.id]
                 div(id=`edit-form-div-${answer.id}`)
                     form(class='hidden' id=`edit-form-${answer.id}`)
                                 textarea(type="textarea" cols="70" rows="10" name="body" value=answer.body id=`${answer.id}-edit-body`)
