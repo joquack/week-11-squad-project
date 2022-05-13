@@ -25,8 +25,6 @@ newAnswerCreateBtn.addEventListener('click', async(e) => {
         const answerCard = document.getElementById(`answer-card-${answerId}`)
         answerCard.remove()
 
-        innerHTML =
-
 
     } else {
 
