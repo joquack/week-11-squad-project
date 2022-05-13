@@ -37,13 +37,13 @@ html
       div(class="responsive-nav-buttons")
         if locals.authenticated
 
-          div.nav-activity-btn(class='nav-home-btn nav-row-responsive user-btn')
+          div.nav-activity-btn(class='nav-home-btn nav-row-responsive nav-row-responsive-btn user-btn')
             span.material-symbols-outlined='article'
               a(href='/' class='home-btn nav-btn btn') Activity
 
           div(class='nav-user-btn nav-row-responsive user-btn')
             span.material-symbols-outlined='account_circle'
-              a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn btn') User
+              a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn nav-row-responsive-btn btn') User
 
           div(class='nav-logout-btn nav-row-responsive')
             form(action='/users/logout' method='post')
