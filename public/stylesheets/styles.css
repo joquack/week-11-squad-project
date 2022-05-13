@@ -68,23 +68,84 @@ body {
     vertical-align: top;
 }
 
+.log-btn {
+    all: initial;
+    box-sizing: content-box;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #018dc4;
+    border-radius: 9px;
+    color: rgba(255, 255, 255, 0.9);
+    text-overflow: clip;
+    background-color: #018dc4;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 1);
+    margin: 5px;
+    margin-left: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    float: left;
+    padding: 3px 10px 3px 5px;
+    margin-bottom: 0px;
+}
+
+.signup-btn {
+    background-color: #F77A61;
+}
+
 .nav-row {
-    margin-bottom: 15px;
+    display: flex;
+    margin-bottom: 10px;
     height: 18px;
     line-height: 18px;
 }
 
-.logout-btn {
+.nav-row-responsive {
+    display: flex;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+
+.user-btn {
+    height: 18px;
+    line-height: 18px;
+}
+.main-nav-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.responsive-nav-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.nav-create-question-btn {
+    margin-top: 20px;
+}
+
+/* .logout-btn  {
     margin-top: 30px;
     background-color: #018dc4;
-}
+} */
 
 .title-card {
     background-color: white;
     margin: 1px 2px 10px 2px;
 }
 
+/* .login-button {
 
+} */
+
+/* .login-btn {
+    background-color: #018dc4;
+} */
+/* a(href='/users/login' class='login-btn nav-btn btn') Login
+div(class='signup-button nav-row')
+a(href='/users/Signup' class='signup-btn btn') Signup */
 
 /* ******* Question Card ******* */
 .question-list-card {
