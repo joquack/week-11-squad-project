@@ -4,18 +4,22 @@ const db = require("../../db/models");
 
 router.get("/users/:id(\\d+)/:userName", async (req, res) => {
   const numId = parseInt(req.params.id);
-  console.log(`*****`, Object.keys(req.signedCookies));
+  // console.log(`*****`, Object.keys(req.signedCookies));
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
-  console.log(user.username, `!!!!!!!!!!!!!!`);
+  // console.log(user.username, `!!!!!!!!!!!!!!`);
   try {
-    console.log(user.username == name, user.username, name);
+    console.log(
+      user.username == name,
+      req.session.auth.userId === numId,
+      numId === user.id
+    );
     if (
       user.username === name &&
       numId === user.id &&
       req.session.auth.userId === numId
     ) {
-      return res.render("user-profile");
+      return res.render("user-profile", { user });
     }
     if (user.username == name && req.session.auth.userId === numId) {
       return res.render("profile-found-logged", { name });
