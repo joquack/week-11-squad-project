@@ -5,7 +5,7 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
 
     title J3C Group - #{title}
-    link(rel='stylesheet' href='../stylesheets/styles.css')
+    link(rel='stylesheet' href='./stylesheets/styles.css')
     link(rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0")
     //- script(src="/javascripts/answer-answervotes.js" type="module")
     script(src="/javascripts/answerDelete.js" type="module")
@@ -14,24 +14,26 @@ html
 
   body
     div.nav-bar
+
+      img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
+
+      div(class='nav-home-btn nav-row')
+        span.material-symbols-outlined='home'
+          a(href='/' class='home-btn nav-btn btn') Home
+
+      div(class='nav-about-btn nav-row')
+        span.material-symbols-outlined='info'
+          a(href='/about' class='home-btn nav-btn btn') About
+
+      div(class='nav-questions-btn nav-row')
+        span.material-symbols-outlined='quiz'
+          a(href='/questions' class='home-btn nav-btn btn') Questions
+
+      div(class='nav-tag-btn nav-row')
+        span.material-symbols-outlined='category'
+          a(href='/' class='home-btn nav-btn btn') Tags
+
       if locals.authenticated
-        img(class="logo" src="https://s3.amazonaws.com/iconbros/icons/icon_pngs/000/017/673/original/structure_4516894.png?1641316778", alt="logo")
-
-        div(class='nav-home-btn nav-row')
-          span.material-symbols-outlined='home'
-            a(href='/' class='home-btn nav-btn btn') Home
-
-        div(class='nav-about-btn nav-row')
-          span.material-symbols-outlined='info'
-            a(href='/about' class='home-btn nav-btn btn') About
-
-        div(class='nav-questions-btn nav-row')
-          span.material-symbols-outlined='quiz'
-            a(href='/questions' class='home-btn nav-btn btn') Questions
-
-        div(class='nav-tag-btn nav-row')
-          span.material-symbols-outlined='category'
-            a(href='/' class='home-btn nav-btn btn') Tags
 
         div.nav-activity-btn(class='nav-home-btn nav-row')
           span.material-symbols-outlined='article'
@@ -41,22 +43,18 @@ html
           span.material-symbols-outlined='account_circle'
             a(href=`/users/${user.id}/${user.username}` class='user-btn nav-btn btn') User
 
-        div(class='nav-search-bar nav-row')
-          span.material-symbols-outlined='search'
-            a(href='/' class='home-btn nav-btn btn') Search
-
-        div(class='nav-create-question-btn nav-row')
-          a(href='/questions/create') Create Question
-
         div(class='nav-logout-btn nav-row')
           form(action='/users/logout' method='post')
             button(class='logout-btn btn' type='submit') Logout
       else
-        div(class='login-header')
-          span
-            a(href='/users/login' class='login-btn btn') Login
+        div(class='login-header nav-row')
+            a(href='/users/login' class='login-btn nav-btn btn') Login
+        div(class='signup-header nav-row')
             a(href='/users/Signup' class='signup-btn btn') Signup
 
+    //- div(class='nav-create-question-btn nav-row')
+    //-       a(href='/questions/create') Create Question
+    //-   else
 
     .main-content
       div.title-card
