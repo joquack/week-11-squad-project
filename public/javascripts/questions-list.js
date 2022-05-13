@@ -17,4 +17,7 @@ searchBar.addEventListener('input', e => {
     if (document.getElementsByClassName('hidden question-list-card').length == allQuestions.length) {
         noQuestionsFound[0].classList.remove('hidden')
     }
+    if (document.getElementsByClassName('hidden question-list-card').length !== allQuestions.length) {
+        noQuestionsFound[0].classList.add('hidden')
+    }
 })
