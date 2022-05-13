@@ -1,7 +1,6 @@
 extends layout.pug
 
-include utils.pug
-
 block content
-  p Seems like you got lost!~
-  +validationErrorSummary(errors)
+  div(class="error-box")
+    div(class="error-box-message") Awkward.. we couldn't find the page you requested.
+    div(class="error-box-picture")
