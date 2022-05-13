@@ -55,7 +55,7 @@ router.post(
           console.log(`LMAO DOES IT RENDER HERE?`);
           loginUser(req, res, user);
 
-          return res.redirect(`/`);
+          return res.redirect(`/home`);
         }
       }
 

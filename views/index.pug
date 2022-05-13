@@ -2,22 +2,25 @@
 
 //- append head
   //- add page specific styles by appending to the head
-  //- link(rel="stylesheet" href="/stylesheets/index.css")
+ 
   //- add page specific js
   //- script(src="/javascripts/index.js" type="module" defer)
+
 extends layout.pug
 
 block content
-  p This is where questions will live!
   if locals.authenticated
-    span So what do you want to do, #{user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}?
-    div
-      a(href=`/users/${user.id}/${user.username}`) My Profile
-    div
-      a(href=`/users`) All Users
-    form(action='/users/logout' method='post')
-      button(type='submit') Logout
+    div.welcome-page
+
+        p Welcome to your Profile!
+        span.whatodo So what do you want to do, #{user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}
+        a(href=`/users/${user.id}/${user.username}`) My Profile
+        a(href=`/users`) All Users
+        form(action='/users/logout' method='post')
+          button(type='submit') Logout
   else
-    div(class='py-4')
-      a(href='/users/login') Login
-      a(href='/users/signup') Sign Up!
+    div.welcome-page
+      p Where would you like to go?
+      div(class='auth')
+        a(href='/users/login') Login
+        a(href='/users/signup') Sign Up!
