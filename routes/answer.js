@@ -45,7 +45,7 @@ router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerVali
 
     if (validatorErrors.isEmpty()) {
         await answer.save();
-        res.redirect('../../questions/' + questionId);
+        res.redirect('/questions/' + questionId);
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('answer-create', {

@@ -27,9 +27,6 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
 
   const answer = await db.Answer.build();
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
-  let arr = []
-  for (userAnswer of answers) arr.push(userAnswer.dataValues.AnswerVotes)
-  let arrVote = arr.flat()
 
   console.log('******************HERE*****************')
   let userVotes = {}

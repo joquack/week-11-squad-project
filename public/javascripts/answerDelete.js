@@ -21,6 +21,7 @@ for (let i = 0; i < answerDeleteBtns.length; i++) {
 
         const data = await res.json()
         if (data.message === 'Success') {
+
             const answerCard = document.getElementById(`answer-card-${answerId}`)
             answerCard.remove()
         } else {
