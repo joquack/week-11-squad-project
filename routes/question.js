@@ -27,9 +27,43 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
 
   const answer = await db.Answer.build();
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
-  const votes = answers[0].dataValues.AnswerVotes
 
-  res.render("question", { title: `${question.title}`, question, votes, questionId, answer, answers, csrfToken: req.csrfToken()});
+  console.log('******************HERE*****************')
+  let userVotes = {}
+  for (each of answers){
+    if(each.dataValues.AnswerVotes.length == false){
+      userVotes[each.id] = 0
+    }
+    else {
+      let vArr = each.dataValues.AnswerVotes
+      console.log(vArr)
+      for (vote of vArr){
+        if(!userVotes[each.id]){
+          if(vote.dataValues.vote == true)
+            userVotes[each.id] = 1
+
+          else
+            userVotes[each.id] = -1
+        }
+        else {
+          if(vote.dataValues.vote == true)
+            userVotes[each.id]++
+
+          else
+            userVotes[each.id]--
+        }
+      }
+    }
+    console.log(userVotes)
+  }
+  console.log('******************END*******************')
+
+  let loggedInUser
+    if (req.session.auth) {
+        loggedInUser = req.session.auth.userId
+    }
+
+  res.render("question", { title: `${question.title}`, loggedInUser, question, questionId, answer, answers, userVotes, csrfToken: req.csrfToken()});
 })
 );
 
@@ -134,6 +168,14 @@ router.post(
   })
 );
 
+// router.get("/:id(\\d+)", asyncHandler(async (req, res) => {
+//   const questionId = parseInt(req.params.id, 10);
+//   const question = await db.Question.findByPk(questionId);
+//   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: AnswerVote });
+//   const votes = answers[0].dataValues.AnswerVotes
+//   res.render("question", { title: `${question.title}`, question, votes});
+// })
+// );
 
 
 module.exports = router;
