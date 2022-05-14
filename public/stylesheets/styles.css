@@ -48,7 +48,33 @@ a {
 .hidden {
     display: none;
 }
+.nav-bar {
+    top: 0;
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 150px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: white;
+    color: black;
+    border: #181A1B;
+}
 
+.main-content {
+    display: flex;
+    flex-basis: 600px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: #E9F6FF;
+    color: black;
+    flex-direction: column;
+    width: 700px;
+}
+
+.splash {
+    color: black;
+}
 
 /* ******* Logo ******* */
 
@@ -176,49 +202,6 @@ body {
 /* a(href='/users/login' class='login-btn nav-btn btn') Login
 div(class='signup-button nav-row')
 a(href='/users/Signup' class='signup-btn btn') Signup */
-
-/* ******* Question Card ******* */
-.question-list-card {
-    background-color: #F7D7C8;
-    margin: 2px 5px 10px 5px;
-    border: 1px solid #5F8097;
-
-}
-
-a.question-title {
-    all: initial;
-    color: #018dc4;
-    font-family: "Helvetica Neue";
-    font-size: 24px;
-}
-
-.nav-bar {
-    top: 0;
-    position: sticky;
-    display: flex;
-    flex-direction: column;
-    flex-basis: 150px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-color: white;
-    color: black;
-    border: #181A1B;
-}
-
-.main-content {
-    display: flex;
-    flex-basis: 600px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-color: #E9F6FF;
-    color: black;
-    flex-direction: column;
-    width: 700px;
-}
-
-.splash {
-    color: black;
-}
 
 
 /* ******* Answer Card ******* */
@@ -481,7 +464,8 @@ body.splash-page-body {
     border-radius: 7px;
     border: #F7D7C8 2px solid;
 }
-.answer-card {
+.answer-card,
+.question-page-card {
     margin: 7px 7px;
     border: #F7D7C8 2px solid;
     border-radius: 15px;
@@ -545,7 +529,8 @@ body.splash-page-body {
 .question-edit-btn,
 .question-delete-btn,
 .answer-delete-btn,
-.answer-edit-btn {
+.answer-edit-btn,
+#new-answer-submit {
     background-color: salmon;
     color: white;
     /* font-weight: bold; */
@@ -557,6 +542,7 @@ body.splash-page-body {
 .question-edit-btn:hover,
 .question-delete-btn:hover,
 .answer-delete-btn:hover,
+#new-answer-submit:hover,
 .answer-edit-btn:hover {
     background-color: white;
     color: salmon;
@@ -568,6 +554,33 @@ body.splash-page-body {
     display: flex;
     justify-content: space-around;
 }
+
+/* ******* Question Card ******* */
+.question-card-heading>p,
+.question-card-title,
+.question-card-user{
+    padding-top: 5px;
+    margin: 0px;
+}
+.question-list-card {
+    margin: 7px 7px;
+    padding: 5px 20px;
+    border: #F7D7C8 2px solid;
+    border-radius: 15px;
+    background-color: white;
+}
+.question-title:hover {
+    cursor: pointer;
+    color: salmon;
+}
+a.question-title {
+    all: initial;
+    color: #018dc4;
+    font-family: "Helvetica Neue";
+    font-size: 24px;
+}
+
+
 /* ************** TEST FEATURES ************** */
 
 /* .btn {
