@@ -24,6 +24,8 @@ const { restoreUser } = require("./auth");
 const app = express();
 
 // view engine setup
+
+
 app.set("view engine", "pug");
 app.use(express.static("./public"));
 

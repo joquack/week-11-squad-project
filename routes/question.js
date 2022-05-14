@@ -63,7 +63,7 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
         loggedInUser = req.session.auth.userId
     }
 
-  res.render("question", { title: `${question.title}`, loggedInUser, question, questionId, answer, answers, userVotes, csrfToken: req.csrfToken()});
+  res.render("question", { title: `Q: ${question.title}`, loggedInUser, question, questionId, answer, answers, userVotes, csrfToken: req.csrfToken()});
 })
 );
 
@@ -115,6 +115,24 @@ router.post("/create", csrfProtection, requireAuth, questionValidators, asyncHan
 })
 );
 
+router.get(
+  "/delete/:id(\\d+)",
+  requireAuth,
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const question = await db.Question.findByPk(questionId);
+
+    checkPermissions(question, res.locals.user);
+
+    res.render("question-delete", {
+      title: "Delete Question",
+      question,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
+
 
 router.get(
   "/edit/:id(\\d+)",
@@ -164,6 +182,27 @@ router.post(
         errors,
         csrfToken: req.csrfToken(),
       });
+    }
+  })
+);
+
+router.post(
+  "/delete/:id(\\d+)",
+  requireAuth,
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const questionId = parseInt(req.params.id, 10);
+    const questionToUpdate = await db.Question.findByPk(questionId);
+    checkPermissions(questionToUpdate, res.locals.user);
+    console.log("*****questionToUpdate:", questionToUpdate)
+    try {
+      await questionToUpdate.destroy();
+      res.redirect("/questions");
+    } catch (e) {
+      console.log("This is the error", e)
+        res.render("page-not-found", {
+        title: "Operation Unsuccessful"}
+      );
     }
   })
 );

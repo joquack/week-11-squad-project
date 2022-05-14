@@ -6,7 +6,7 @@ extends question.pug
 
 block content
   +validationErrorSummary(errors)
-  form(action= '/answers/'+questionId+'/create' method='post' class="new-answer-div")
+  form(action= '/answers/'+questionId+'/create' method='post' class="new-question-div")
     input(type='hidden' name='_csrf' value=csrfToken)
     input(type='hidden' name='questionId' value=questionId)
     +field('Answer', 'body', answer.body)

@@ -1,13 +1,12 @@
 extends layout
 
 block content
-    p(id='about-header-text') Welcome to our About page! It looks pretty bare doesn't it?
 
-    div(id='about-concept')
+    div(id='about-concept' class="about-section-card")
         h2(class='about-h2') Concept
         div(id='about-concept-text')
             p Lorem ipsum dolor sit amet, consectetur adipiscing elit, ut labore et dolore magna aliqua. Ut enim ad minim veniam, sed do eiusmod tempor incididunt quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    div(id='about-acknowledgements')
+    div(id='about-acknowledgements' class="about-section-card")
         h2(class='about-h2') Acknowledgements
         ul(id='acknowledgements-list')
             li(class='acknowledgements-bullets')
@@ -16,7 +15,7 @@ block content
                 a(href='https://www.educative.io/courses/grokking-the-coding-interview' class='acknowledgements-links') Educative - Grokking the Interview - 14 Patterns
             li(class='acknowledgements-bullets')
                 a(href='https://hackernoon.com/14-patterns-to-ace-any-coding-interview-question-c5bb3357f6ed' class='acknowledgements-links') HackerNoon - 14 Patterns to Ace Any Coding Interivew
-    div(id='about-contributors')
+    div(id='about-contributors' class="about-section-card")
         h2(class='about-h2') Contributors
 
         div(class='single-contributor')

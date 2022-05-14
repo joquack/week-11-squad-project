@@ -19,7 +19,7 @@ router.get("/users/:id(\\d+)/:userName", async (req, res) => {
       numId === user.id &&
       req.session.auth.userId === numId
     ) {
-      return res.render("user-profile", { user });
+      return res.render("user-profile", { name });
     }
     if (user.username == name && req.session.auth.userId === numId) {
       return res.render("profile-found-logged", { name });

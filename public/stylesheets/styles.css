@@ -150,8 +150,11 @@ body {
     justify-content: left;
 }
 
-.nav-create-question-btn {
+.nav-create-question-btn > {
     margin-top: 20px;
+    margin-left: 0px;
+    padding-left: 0px;
+    float: left;
 }
 
 /* .logout-btn  {
@@ -164,6 +167,19 @@ body {
     margin: 1px 2px 10px 2px;
     border: 2px solid #5F8097;
     padding-left: 10px;
+}
+
+.nav-bar {
+    top: 0;
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 170px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    background-color: white;
+    color: black;
+    border: #181A1B;
 }
 
 /* .login-button {
@@ -192,18 +208,7 @@ a.question-title {
     font-size: 24px;
 }
 
-.nav-bar {
-    top: 0;
-    position: sticky;
-    display: flex;
-    flex-direction: column;
-    flex-basis: 150px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    background-color: white;
-    color: black;
-    border: #181A1B;
-}
+
 
 .main-content {
     display: flex;
@@ -451,6 +456,61 @@ body.splash-page-body {
     font-family: "Helvetic Nueue";
 }
 
+.error-box-special {
+    display: flex;
+    flex-direction: column;
+}
+
+.error-box-special > .error-box-picture  {
+    display: flex;
+    flex-direction: column;
+    background-image: url("../images/icon-error.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 300px;
+    width: 400px;
+}
+
+.about-section-card {
+    background-color: white;
+    padding: 15px 10px 15px 10px;
+    margin: 2px 5px 10px 5px;
+    border: 1px solid #5F8097;
+
+}
+
+.new-question-div {
+    background-color: white;
+    padding: 15px 10px 15px 10px;
+    margin: 2px 5px 10px 5px;
+    border: 1px solid #5F8097;
+}
+
+.form {
+    background-color: white;
+    padding: 15px 10px 15px 10px;
+    margin: 2px 5px 10px 5px;
+    border: 1px solid #5F8097;
+    margin: 0 auto;
+    padding-bottom: 75px;
+    width: 300px;
+}
+
+.errors {
+    font-family: "Helvetica Nueue";
+    font-weight: 500;
+    font-size: 16px;
+    background-color: white;
+    padding: 15px 10px 15px 10px;
+    margin: 2px 5px 10px 5px;
+    border: 3px solid salmon;
+}
+
+.error-bullet {
+    color: salmon;
+    font-weight: 800;
+    font-size: 18px;
+}
 
 /* .splash-message-display-container {
     display: flex;
