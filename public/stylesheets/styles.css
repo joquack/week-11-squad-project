@@ -506,6 +506,12 @@ body.splash-page-body {
     border: lightgray 2px solid;
     background-color: #F7D7C8;
 }
+#new-answer-create:hover {
+    cursor: pointer;
+    background-color: #33ADFF;
+    color: whitesmoke;
+    border: #33ADFF 2px solid;
+}
 .main-content {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -536,6 +542,16 @@ body.splash-page-body {
 .answer-edit-btn {
     background-color: salmon;
     color: white;
+    /* font-weight: bold; */
+    opacity: 0.9;
+    cursor: pointer;
+}
+.question-edit-btn:hover,
+.question-delete-btn:hover,
+.answer-delete-btn:hover,
+.answer-edit-btn:hover {
+    background-color: white;
+    color: salmon;
     /* font-weight: bold; */
     opacity: 0.9;
 }
