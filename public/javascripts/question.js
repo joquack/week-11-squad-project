@@ -15,10 +15,10 @@ newAnswerCreateBtn.addEventListener('click', e => {
 
 searchBar.addEventListener('input', e => {
     for (let i = 0; i < allAnswers.length; i++){
-        if (!(answerBodies[i].innerHTML.includes(searchBarObject[0].value))) {
+        if (!(answerBodies[i].innerHTML.toLowerCase().includes(searchBarObject[0].value.toLowerCase()))) {
             allAnswers[i].classList.add('hidden')
         }
-        if (answerBodies[i].innerHTML.includes(searchBarObject[0].value)) {
+        if (answerBodies[i].innerHTML.toLowerCase().includes(searchBarObject[0].value.toLowerCase())) {
             allAnswers[i].classList.remove('hidden')
         }
     }

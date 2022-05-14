@@ -13,7 +13,7 @@ const {
 
 const permission = async (req, res, next) => {
   const numId = parseInt(req.params.id);
-  console.log(numId, `*********`, req.session.auth);
+  // console.log(numId, `*********`, req.session.auth);
   const name = req.params.userName;
   let user = await db.User.findByPk(numId);
   if (req.session.auth == null) {

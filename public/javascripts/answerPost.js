@@ -1,4 +1,4 @@
-console.log('Hello from your script')
+// console.log('Hello from your script')
 
 // Find all delete buttons
 // add event listener to each button

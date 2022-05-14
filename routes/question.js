@@ -28,7 +28,7 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
   const answer = await db.Answer.build();
   const answers = await db.Answer.findAll({ where: { questionId: questionId }, include: [User, AnswerVote] });
 
-  console.log('******************HERE*****************')
+  // console.log('******************HERE*****************')
   let userVotes = {}
   for (each of answers){
     if(each.dataValues.AnswerVotes.length == false){
@@ -36,7 +36,7 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
     }
     else {
       let vArr = each.dataValues.AnswerVotes
-      console.log(vArr)
+      // console.log(vArr)
       for (vote of vArr){
         if(!userVotes[each.id]){
           if(vote.dataValues.vote == true)
@@ -54,9 +54,9 @@ router.get("/:id(\\d+)", csrfProtection, asyncHandler(async (req, res) => {
         }
       }
     }
-    console.log(userVotes)
+    // console.log(userVotes)
   }
-  console.log('******************END*******************')
+  // console.log('******************END*******************')
 
   let loggedInUser
     if (req.session.auth) {
