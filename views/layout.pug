@@ -5,7 +5,7 @@ html
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
 
     title J3C Group - #{title}
-    link(rel='stylesheet' href='../stylesheets/styles.css')
+    link(rel='stylesheet' href='/stylesheets/styles.css')
     link(rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0")
     //- script(src="/javascripts/answer-answervotes.js" type="module")
     script(src="/javascripts/answerDelete.js" type="module")
@@ -19,7 +19,7 @@ html
       div(class="main-nav-buttons")
         div(class='nav-home-btn nav-row')
           span.material-symbols-outlined='home'
-            a(href='/' class='home-btn nav-btn btn') Home
+            a(href='/home' class='home-btn nav-btn btn') Home
 
         div(class='nav-about-btn nav-row')
           span.material-symbols-outlined='info'
@@ -31,7 +31,7 @@ html
 
         div(class='nav-tag-btn nav-row')
           span.material-symbols-outlined='category'
-            a(href='/' class='home-btn nav-btn btn') Tags
+            a(href='/questions' class='home-btn nav-btn btn') Tags
 
       div(class="responsive-nav-buttons")
         if locals.authenticated
