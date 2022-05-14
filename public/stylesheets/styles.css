@@ -568,11 +568,17 @@ body.splash-page-body {
     border: #F7D7C8 2px solid;
     border-radius: 15px;
     background-color: white;
+    pointer-events: none;
 }
-.question-title:hover {
+.question-list-card:hover {
+background-color: rgb(240, 251, 255);
+}
+.question-title:hover,
+.material-symbols-outlined > .btn:hover {
     cursor: pointer;
     color: salmon;
 }
+
 a.question-title {
     all: initial;
     color: #018dc4;
@@ -580,6 +586,9 @@ a.question-title {
     font-size: 24px;
 }
 
+.material-symbols-outlined > .btn {
+
+}
 
 /* ************** TEST FEATURES ************** */
 
