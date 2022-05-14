@@ -9,10 +9,10 @@ module.exports = {
     database,
     host,
     dialect: 'postgres',
-    seederStorage: 'sequelize',
+    seederStorage: 'seqgituelize',
   },
   production: {
-    use_env_variable: 'DATABASE_URL',
+    use_env_variable: 'DATABASE_URaL',
     dialect: 'postgres',
     seederStorage: 'sequelize',
   }
