@@ -45,14 +45,14 @@ router.post(
     if (validatorErrors.isEmpty()) {
       const user = await db.User.findOne({ where: { email } });
 
-      console.log(user);
+      // console.log(user);
       if (user !== null) {
         const passwordMatch = await bcrypt.compare(
           password,
           user.hashPassword.toString()
         );
         if (passwordMatch) {
-          console.log(`LMAO DOES IT RENDER HERE?`);
+          // console.log(`LMAO DOES IT RENDER HERE?`);
           loginUser(req, res, user);
 
           return res.redirect(`/`);

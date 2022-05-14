@@ -63,7 +63,7 @@ router.get('/edit/:id(\\d+)', requireAuth, csrfProtection,
         const answerId = parseInt(req.params.id, 10);
         const answer = await db.Answer.findByPk(answerId);
         const questionId = answer.questionId
-        console.log(answer)
+        // console.log(answer)
         checkPermissions(answer, res.locals.user);
 
         res.render('answer-edit', {
