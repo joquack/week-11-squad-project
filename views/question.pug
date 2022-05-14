@@ -5,17 +5,18 @@ include utils.pug
 block content
     script(src="/javascripts/question.js" type="module")
     div.question-page-card
-        div= question.content
+        div(id='question-content')= question.content
         div(class="question-page-card-bottom-details card-bottom-row")
             div(class="question-card-user")
                 span.material-symbols-outlined='person'
                     a(href='/' class='user-link')=question.User.username
-            if locals.user.id=== question.userId
+            if locals.authenticated && locals.user.id === question.userId
                 div.edit-delete-buttons
                     a(class='btn card-btn question-delete-btn' href=`/questions/delete/${question.id}` role='button') Delete
                     a(class='btn card-btn question-edit-btn' href=`/questions/edit/${question.id}` role='button') Edit
     if locals.authenticated
-        button(id=`new-answer-create`) Create Answer
+        div(id='new-answer-btn-container')
+            button(id=`new-answer-create`) Create Answer
         div(class='hidden' id='create-answer-form')
             h3 Create an Answer
             div(class="hidden" id="questionIdDiv")=`${question.id}`
@@ -30,7 +31,7 @@ block content
                     button(type="submit" class="btn card-btn answer-submit" id=`new-answer-submit`) Submit Answer
 
     if answers && answers.length > 0
-        h3 Answers
+        h3(id='h3-answers') Answers
         input(type='search' value='' class='search-bar' placeholder='Search')
         div(class="answers-container")
             each answer in answers
@@ -44,7 +45,7 @@ block content
                         div(class="question-card-user")
                             span.material-symbols-outlined='person'
                                 a(href='/' class='user-link')=answer.User.username
-                        if locals.user.id === answer.userId
+                        if locals.authenticated && locals.user.id === answer.userId
                             div.edit-delete-buttons
                                 button(class='btn card-btn answer-delete-btn' id=`delete-answer-${answer.id}`) Delete
                                 button(class="btn card-btn answer-edit-btn" id=`edit-btn-${answer.id}`) Edit
@@ -52,4 +53,4 @@ block content
             div(class='no-answers-found hidden') No answers found.
 
     else
-        p: em There are no answers yet.
+        p(class='no-answers-yet') There are no answers yet.

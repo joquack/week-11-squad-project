@@ -2,9 +2,7 @@ extends layout.pug
 
 block content
     script(src="/javascripts/questions-list.js" type="module")
-    div(class=search-bar)
-        label(for="title") Search Questions
-        input(type='search' value='' class='search-bar' placeholder='Search')
+    input(type='search' value='' class='search-bar' placeholder='Search')
         //- button(type='submit' class='btn search-btn') Search
     if questions && questions.length > 0
         each question in questions

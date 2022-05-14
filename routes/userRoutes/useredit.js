@@ -24,7 +24,7 @@ const permission = async (req, res, next) => {
   ) {
     return next();
   }
-  console.log(`HEELO~~~~~~~~~~~~~~~~~~~`);
+  // console.log(`HEELO~~~~~~~~~~~~~~~~~~~`);
   return res.redirect("/");
 };
 

@@ -89,7 +89,7 @@ router.post(
   userValidators,
   asyncHandler(async (req, res) => {
     const { username, firstName, lastName, email, password } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const user = await db.User.build({
       username,
       firstName,
@@ -102,7 +102,7 @@ router.post(
     if (validatorErrors.isEmpty()) {
       const hashPassword = await bcrypt.hash(password, 10);
       user.hashPassword = hashPassword;
-      console.log(`WEFGAWHGBWRG ARE WER HERE`);
+      // console.log(`WEFGAWHGBWRG ARE WER HERE`);
       await user.save();
       loginUser(req, res, user);
       res.redirect("/");
