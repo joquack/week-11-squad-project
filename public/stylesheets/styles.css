@@ -495,11 +495,17 @@ body.splash-page-body {
     padding: 0 190px;
     margin-top: 20px;
 }
+#new-answer-btn-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
 #new-answer-create {
-    width: 300px;
-    margin-left: 28%;
-    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     height: 50px;
+    width: 200px;
     border-radius: 20px;
     font-size: larger;
     font-weight: bolder;
@@ -545,6 +551,8 @@ body.splash-page-body {
     /* font-weight: bold; */
     opacity: 0.9;
     cursor: pointer;
+    box-shadow: black 1px 1px 1px;
+    border: black 1px solid;
 }
 .question-edit-btn:hover,
 .question-delete-btn:hover,
@@ -554,6 +562,11 @@ body.splash-page-body {
     color: salmon;
     /* font-weight: bold; */
     opacity: 0.9;
+}
+#h3-answers {
+    /* margin-left: 45%; */
+    display: flex;
+    justify-content: space-around;
 }
 /* ************** TEST FEATURES ************** */
 

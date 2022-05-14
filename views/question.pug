@@ -15,7 +15,8 @@ block content
                     a(class='btn card-btn question-delete-btn' href=`/questions/delete/${question.id}` role='button') Delete
                     a(class='btn card-btn question-edit-btn' href=`/questions/edit/${question.id}` role='button') Edit
     if locals.authenticated
-        button(id=`new-answer-create`) Create Answer
+        div(id='new-answer-btn-container')
+            button(id=`new-answer-create`) Create Answer
         div(class='hidden' id='create-answer-form')
             h3 Create an Answer
             div(class="hidden" id="questionIdDiv")=`${question.id}`
@@ -30,7 +31,7 @@ block content
                     button(type="submit" class="btn card-btn answer-submit" id=`new-answer-submit`) Submit Answer
 
     if answers && answers.length > 0
-        h3 Answers
+        h3(id='h3-answers') Answers
         input(type='search' value='' class='search-bar' placeholder='Search')
         div(class="answers-container")
             each answer in answers
