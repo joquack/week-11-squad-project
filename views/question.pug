@@ -10,7 +10,7 @@ block content
             div(class="question-card-user")
                 span.material-symbols-outlined='person'
                     a(href='/' class='user-link')=question.User.username
-            if locals.user.id=== question.userId
+            if locals.authenticated && locals.user.id === question.userId
                 div.edit-delete-buttons
                     a(class='btn card-btn question-delete-btn' href=`/questions/delete/${question.id}` role='button') Delete
                     a(class='btn card-btn question-edit-btn' href=`/questions/edit/${question.id}` role='button') Edit
@@ -44,7 +44,7 @@ block content
                         div(class="question-card-user")
                             span.material-symbols-outlined='person'
                                 a(href='/' class='user-link')=answer.User.username
-                        if locals.user.id === answer.userId
+                        if locals.authenticated && locals.user.id === answer.userId
                             div.edit-delete-buttons
                                 button(class='btn card-btn answer-delete-btn' id=`delete-answer-${answer.id}`) Delete
                                 button(class="btn card-btn answer-edit-btn" id=`edit-btn-${answer.id}`) Edit
