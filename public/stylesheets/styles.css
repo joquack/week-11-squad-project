@@ -472,6 +472,73 @@ body.splash-page-body {
         div(id="message-display-container" class="message-display-container")
         div(id="navigation-container" class="navigation-container") */
 
+/* ************** Answers List ************** */
+
+.search-bar {
+    margin: 5px 40px;
+    height: 40px;
+    font-size: large;
+    border-radius: 7px;
+    border: #F7D7C8 2px solid;
+}
+.answer-card {
+    margin: 7px 7px;
+    border: #F7D7C8 2px solid;
+    border-radius: 15px;
+}
+
+.no-answers-found {
+    padding: 0 210px;
+    margin-top: 20px;
+}
+.no-answers-yet {
+    padding: 0 190px;
+    margin-top: 20px;
+}
+#new-answer-create {
+    width: 300px;
+    margin-left: 28%;
+    margin-top: 20px;
+    height: 50px;
+    border-radius: 20px;
+    font-size: larger;
+    font-weight: bolder;
+    border: lightgray 2px solid;
+    background-color: #F7D7C8;
+}
+.main-content {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.main-content,
+.answers-container
+ {
+    border-radius: 15px;
+}
+
+.title-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 50px 100px 10px 100px;
+    border: #F7D7C8 2px solid;
+    border-radius: 15px;
+}
+#question-content {
+    padding: 0px 40px 0px 40px;
+    font-size: large;
+    margin:10px
+
+}
+.question-edit-btn,
+.question-delete-btn,
+.answer-delete-btn,
+.answer-edit-btn {
+    background-color: salmon;
+    color: white;
+    /* font-weight: bold; */
+    opacity: 0.9;
+}
 /* ************** TEST FEATURES ************** */
 
 /* .btn {

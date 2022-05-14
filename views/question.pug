@@ -5,7 +5,7 @@ include utils.pug
 block content
     script(src="/javascripts/question.js" type="module")
     div.question-page-card
-        div= question.content
+        div(id='question-content')= question.content
         div(class="question-page-card-bottom-details card-bottom-row")
             div(class="question-card-user")
                 span.material-symbols-outlined='person'
@@ -52,4 +52,4 @@ block content
             div(class='no-answers-found hidden') No answers found.
 
     else
-        p: em There are no answers yet.
+        p(class='no-answers-yet') There are no answers yet.
