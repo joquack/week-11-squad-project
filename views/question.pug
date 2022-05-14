@@ -37,7 +37,7 @@ block content
             each answer in answers
                 div(class="answer-card" id=`answer-card-${answer.id}`)
                     div(class='answer-body' id=`${answer.id}-body`)=answer.body
-                    p= userVotes[answer.id]
+                    //- p= userVotes[answer.id]
                     div(id=`edit-form-div-${answer.id}`)
                         form(class='hidden' id=`edit-form-${answer.id}`)
                                     textarea(type="textarea" cols="70" rows="10" name="body" value=answer.body id=`${answer.id}-edit-body`)

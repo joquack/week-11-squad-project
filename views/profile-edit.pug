@@ -1,18 +1,6 @@
-include utils.pug
+extends layout.pug
 
 block content
-  +validationErrorSummary(errors)
-  form(action=`/users/edit/${id}/${user.username}` method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    label(for= 'username' id=`username-label`) Username
-    input(type='text' id='username' name='username' value=user.username)
-    label(for= 'firstName' id=`firstName-label`) First Name
-    input(type='text' id='firstName' name='firstName' value=user.firstName)
-    label(for= 'lastName' id=`lastName-label`) Last Name
-    input(type='text' id='username' name='lastName' value=user.lastName)
-    label(for= 'email' id=`email-label`) Email
-    input(type='text' id='email' name='email' value=user.email)
-    button(type='submit') Confirm Changes
-  form(action=`/users/delete/${user.id}` method='post')
-    button(type='submit') Delete Account
-    a(href='/' role='button') Cancel  
+  div(class="error-box")
+    div(class="error-box-message") Okay, yes, this needs more work.
+    div(class="error-box-picture")

@@ -16,6 +16,7 @@ const userLogout = require("./routes/userRoutes/userlogout");
 const userEdit = require("./routes/userRoutes/useredit");
 const userDelete = require("./routes/userRoutes/userdelete");
 const demoUser = require("./routes/userRoutes/demouser");
+// const favicon = require('serve-favicon');
 
 const answerRouter = require("./routes/answer");
 
@@ -24,9 +25,11 @@ const { restoreUser } = require("./auth");
 const app = express();
 
 // view engine setup
+
+
 app.set("view engine", "pug");
 app.use(express.static("./public"));
-
+// app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
