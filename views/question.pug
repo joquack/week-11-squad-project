@@ -28,7 +28,7 @@ block content
                 label(for="body" id="body-label")= Body
                 textarea(type="textarea" cols="70" rows="10" name="body" id="new-answer-body")
                 div(class='submit-cancel-btns')
-                    button(type="submit" class="btn card-btn answer-submit" id=`new-answer-submit`) Submit Answer
+                    button(type="submit" class="btn card-btn answer-submit hidden" id=`new-answer-submit`) Submit Answer
 
     if answers && answers.length > 0
         h3(id='h3-answers') Answers
