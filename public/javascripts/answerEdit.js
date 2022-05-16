@@ -16,6 +16,7 @@ for (let i = 0; i < answerEditBtns.length; i++) {
     const answerId = e.target.id.split("-")[2];
     const form = document.getElementById(`edit-form-${answerId}`);
     const bodyEle = document.getElementById(`${answerId}-body`);
+    const originalValue = bodyEle.innerText;
     const cancelBtn = document.getElementById(`edit-btn-${answerId}`);
     const submitBtn = document.getElementById(`edit-submit-${answerId}`);
     const editInputBody = document.getElementById(`${answerId}-edit-body`);
@@ -40,6 +41,7 @@ for (let i = 0; i < answerEditBtns.length; i++) {
     submitBtn.addEventListener("click", async (submitEvent) => {
       submitEvent.preventDefault();
       const body = document.getElementById(`${answerId}-edit-body`).value;
+      if (body === "") body = originalValue;
       cancelBtn.innerHTML = "Edit";
 
       const res = await fetch(`/answers/${answerId}`, {
@@ -63,3 +65,33 @@ for (let i = 0; i < answerEditBtns.length; i++) {
     });
   });
 }
+
+const newAnswerForm = document.getElementById("create-answer-form")
+const newAnswerSubmitBtn = document.getElementById("new-answer-submit");
+const newAnswerBody = document.getElementById("new-answer-body");
+
+newAnswerBody.addEventListener("keyup", (e) => {
+
+  if (newAnswerBody.value !== "") {
+
+    if (newAnswerSubmitBtn.classList.contains("hidden")) {
+      newAnswerSubmitBtn.classList.remove("hidden");
+      newAnswerSubmitBtn.classList.add("show");
+    }
+  }
+  else {
+    if (newAnswerSubmitBtn.classList.contains("show")) {
+      newAnswerSubmitBtn.classList.remove("show");
+      newAnswerSubmitBtn.classList.add("hidden");
+      newAnswerForm.classList.add("hidden");
+    }
+    }
+})
+
+// const newAnswerCancelBtn = document.getElementById(`new-answer-cancel`);
+
+// newAnswerCancelBtn.addEventListener("click", (e) => {
+//   e.target.stopPropagation();
+//   e.target.preventDefault();
+//   newAnswerForm.add("hidden");
+// });

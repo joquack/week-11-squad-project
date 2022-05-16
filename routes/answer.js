@@ -32,6 +32,7 @@ const answerValidators = [
         .exists({ checkFalsy: true })
         .withMessage("Please provide an answer")
 ];
+
 router.post("/:questionId(\\d+)/create", csrfProtection, requireAuth, answerValidators, asyncHandler(async (req, res) => {
     const { questionId, body } = req.body;
 
@@ -85,6 +86,17 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
         answer
     })
 }))
+
+// router.post("/:questionId(\\d+)/create", asyncHandler(async (req, res) => {
+//     const answer = await db.Answer.build({});
+//     answer.body = req.body.body
+//     await answer.save()
+
+//     res.json({
+//         message: 'Success',
+//         answer
+//     })
+// }))
 
 // router.post('/edit/:id(\\d+)', requireAuth, csrfProtection, answerValidators,
 //     asyncHandler(async (req, res) => {
